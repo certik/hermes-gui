@@ -73,15 +73,25 @@ class MainWindow(ApplicationWindow):
                 tooltip="Exit the application"
                 )
 
+        new_action = Action(
+                name='New...',
+                image=ImageResource("images/document-new.png")
+                )
+        open_action = Action(
+                name='Open...',
+                image=ImageResource("images/document-open.png")
+                )
+        save_action = Action(
+                name='Save...',
+                image=ImageResource("images/document-save.png")
+                )
+
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
                 Group(
-                    Action(name='New...',
-                        image=ImageResource("images/document-new.png")),
-                    Action(name='Open...',
-                        image=ImageResource("images/document-open.png")),
-                    Action(name='Save...',
-                        image=ImageResource("images/document-save.png")),
+                    new_action,
+                    open_action,
+                    save_action,
                     Action(name='Save as...',
                         image=ImageResource("images/document-save-as.png")),
                     Action(name='Close'),
@@ -128,16 +138,18 @@ class MainWindow(ApplicationWindow):
 
         self.tool_bar_managers = [
             ToolBarManager(
-                exit_action, name='Tool Bar 1', show_tool_names=False
+                exit_action, name='Tool Bar 3', show_tool_names=False
             ),
-
             ToolBarManager(
                 exit_action, name='Tool Bar 2', show_tool_names=False
             ),
-
             ToolBarManager(
-                exit_action, name='Tool Bar 3', show_tool_names=False
+                new_action,
+                open_action,
+                save_action,
+                name='Tool Bar 1', show_tool_names=False
             ),
+
         ]
 
         self.status_bar_manager = StatusBarManager()
