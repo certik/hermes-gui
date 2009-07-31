@@ -76,19 +76,28 @@ class MainWindow(ApplicationWindow):
 
     def __init__(self, **traits):
         """ Creates a new application window. """
-
-        # Base class constructor.
         super(MainWindow, self).__init__(**traits)
 
-        # Create an action that exits the application.
         exit_action = Action(name='E&xit', on_perform=self.close)
 
-        # Add a menu bar.
         self.menu_bar_manager = MenuBarManager(
-            MenuManager(exit_action, name='&File')
+            MenuManager(
+                Action(name='New...'),
+                Action(name='Open...'),
+                Action(name='Save...'),
+                Action(name='Save as...'),
+                Action(name='Close'),
+                Separator(),
+                Action(name='Import DXF...'),
+                Action(name='Export DXF...'),
+                Separator(),
+                Action(name='Export image...'),
+                Separator(),
+                Action(name='Recent files ->'),
+                exit_action,
+                name='&File')
         )
 
-        # Add some tool bars.
         self.tool_bar_managers = [
             ToolBarManager(
                 exit_action, name='Tool Bar 1', show_tool_names=False
@@ -103,10 +112,9 @@ class MainWindow(ApplicationWindow):
             ),
         ]
 
-        # Add a status bar.
         self.status_bar_manager = StatusBarManager()
         self.status_bar_manager.message = 'Example application window'
-        
+
         return
 
 class App(HasPrivateTraits):
