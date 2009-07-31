@@ -3,15 +3,16 @@
 import wx
 import sys
 
-from enthought.pyface.api import ApplicationWindow, GUI
-from enthought.pyface.action.api import Action, MenuManager, MenuBarManager
-from enthought.pyface.action.api import StatusBarManager, ToolBarManager
 
 from enthought.traits.api import *
 from enthought.traits.ui.api import *
 from enthought.traits.ui.menu import *
 from enthought.pyface.dock.api import *
 from enthought.pyface.image_resource import ImageResource
+
+from enthought.pyface.api import ApplicationWindow, GUI
+from enthought.pyface.action.api import (Action, MenuManager, MenuBarManager,
+        StatusBarManager, ToolBarManager, Group, Separator)
 
 # DockControl style to use:
 style1 = 'horizontal'
@@ -111,11 +112,16 @@ class MainWindow(ApplicationWindow):
                 Action(name='Options'),
                 name='Tools'),
             MenuManager(
+                Group(
                 Action(name='Help'),
                 Action(name='Shortcuts'),
-                Separator(),
+                id = "3xx",
+                ),
+                Group(
                 Action(name='About Hermes-gui'),
                 Action(name='About Traits'),
+                id = "xx",
+                ),
                 name='&Help'),
         )
 
