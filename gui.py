@@ -3,6 +3,10 @@
 import wx
 import sys
 
+from enthought.pyface.api import ApplicationWindow, GUI
+from enthought.pyface.action.api import Action, MenuManager, MenuBarManager
+from enthought.pyface.action.api import StatusBarManager, ToolBarManager
+
 from enthought.traits.api import *
 from enthought.traits.ui.api import *
 from enthought.traits.ui.menu import *
@@ -63,6 +67,48 @@ def create_dock_window ( parent, editor ):
 
     return window
 
+class MainWindow(ApplicationWindow):
+    """ The main application window. """
+
+    ###########################################################################
+    # 'object' interface.
+    ###########################################################################
+
+    def __init__(self, **traits):
+        """ Creates a new application window. """
+
+        # Base class constructor.
+        super(MainWindow, self).__init__(**traits)
+
+        # Create an action that exits the application.
+        exit_action = Action(name='E&xit', on_perform=self.close)
+
+        # Add a menu bar.
+        self.menu_bar_manager = MenuBarManager(
+            MenuManager(exit_action, name='&File')
+        )
+
+        # Add some tool bars.
+        self.tool_bar_managers = [
+            ToolBarManager(
+                exit_action, name='Tool Bar 1', show_tool_names=False
+            ),
+
+            ToolBarManager(
+                exit_action, name='Tool Bar 2', show_tool_names=False
+            ),
+
+            ToolBarManager(
+                exit_action, name='Tool Bar 3', show_tool_names=False
+            ),
+        ]
+
+        # Add a status bar.
+        self.status_bar_manager = StatusBarManager()
+        self.status_bar_manager.message = 'Example application window'
+        
+        return
+
 class App(HasPrivateTraits):
     dummy = Int
 
@@ -77,4 +123,10 @@ class App(HasPrivateTraits):
                  buttons   = NoButtons )
 
 if __name__ == '__main__':
-    App().configure_traits()
+    #App().configure_traits()
+    gui = GUI()
+
+    window = MainWindow()
+    window.open()
+
+    gui.start_event_loop()
