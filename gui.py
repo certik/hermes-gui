@@ -78,15 +78,15 @@ class MainWindow(ApplicationWindow):
                 )
 
         new_action = Action(
-                name='New...',
+                name='&New...',
                 image=ImageResource("images/document-new.png")
                 )
         open_action = Action(
-                name='Open...',
+                name='&Open...',
                 image=ImageResource("images/document-open.png")
                 )
         save_action = Action(
-                name='Save...',
+                name='&Save',
                 image=ImageResource("images/document-save.png")
                 )
         zoom_actions = [
@@ -136,7 +136,7 @@ class MainWindow(ApplicationWindow):
                     new_action,
                     open_action,
                     save_action,
-                    Action(name='Save as...',
+                    Action(name='Save &As...',
                         image=ImageResource("images/document-save-as.png")),
                     Action(name='Close'),
                 ),
@@ -165,7 +165,8 @@ class MainWindow(ApplicationWindow):
             MenuManager(
                 Group(*zoom_actions),
                 Group(Action(name="Fullscreen mode")),
-                Group(Action(name="&Scene properties")),
+                Group(Action(name="&Scene properties",
+                    image=ImageResource("images/scene-properties.png"))),
                 name='&View'),
             MenuManager(
                 Group(*problem_actions1),
@@ -177,7 +178,16 @@ class MainWindow(ApplicationWindow):
                     image=ImageResource("images/scene-properties.png"))),
                 name='&Problem'),
             MenuManager(
-                Action(name='Options'),
+                Group(
+                    Action(name='Chart',
+                        image=ImageResource("images/chart.png")),
+                    ),
+                Group(
+                    Action(name='Startup script',
+                        image=ImageResource("images/script-startup.png")),
+                    Action(name='Script editor',
+                        image=ImageResource("images/script.png"))
+                ),
                 name='Tools'),
             MenuManager(
                 Group(
