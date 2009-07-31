@@ -206,56 +206,6 @@ class NodeMaterials(HasTraits):
 
 no_view = View()
 
-class Problem(HasTraits):
-    gain = Enum(1, 2, 3, )
-    exposure = CInt(10, label="Exposure", )
-    n = NodeProblem
-    view = View(
-            Item("gain"),
-            Item(
-                name="wind",
-                editor = TreeEditor(
-            nodes = [
-                TreeNode( node_for  = [ NodeProblem ],
-                          auto_open = True,
-                          children  = '',
-                          label     = 'name',
-                          )
-                ])
-            ))
-
-class LocalValues(HasTraits):
-    string = String()
-
-    view= View( Item('string', show_label=False, springy=True, style='custom' ))
-
-class VolumeIntegral(HasTraits):
-    string = String()
-
-    view= View( Item('string', show_label=False, springy=True, style='custom' ))
-
-class SurfaceIntegral(HasTraits):
-    string = String()
-
-    view= View( Item('string', show_label=False, springy=True, style='custom' ))
-
-class Container(HasTraits):
-    problem = Instance(Problem)
-    local_values = Instance(LocalValues)
-    volume_integral = Instance(VolumeIntegral)
-    surface_integral = Instance(SurfaceIntegral)
-
-    view = View(HSplit(
-                Item('problem', style='custom'),
-                VSplit(
-                    Item('local_values', style='custom'),
-                    Item('volume_integral', style='custom'),
-                    Item('surface_integral', style='custom'),
-                    )
-                ),
-                resizable=True,
-            )
-
 
 
 class Employee ( HasTraits ):
@@ -377,20 +327,55 @@ demo = Partner(
     )
 )
 
+class Problem(HasTraits):
+    gain = Enum(1, 2, 3, )
+    exposure = CInt(10, label="Exposure", )
+    data = Instance(Partner)
+
+class LocalValues(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class VolumeIntegral(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class SurfaceIntegral(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class Container(HasTraits):
+    problem = Instance(Problem)
+    local_values = Instance(LocalValues)
+    volume_integral = Instance(VolumeIntegral)
+    surface_integral = Instance(SurfaceIntegral)
+
+    view = View(HSplit(
+                Item('problem', style='custom'),
+                VSplit(
+                    Item('local_values', style='custom'),
+                    Item('volume_integral', style='custom'),
+                    Item('surface_integral', style='custom'),
+                    )
+                ),
+                resizable=True,
+            )
+
+
 if __name__ == '__main__':
     gui = GUI()
 
     #window = MainWindow()
     #window.open()
 
-    n = NodeProblem(name = "tst")
-    demo.configure_traits()
-
-    #container = Container(problem=Problem(n=n),
-    #        local_values=LocalValues(),
-    #        volume_integral=VolumeIntegral(),
-    #        surface_integral=SurfaceIntegral(),
-    #        )
-    #container.configure_traits()
+    container = Container(problem=Problem(data=demo),
+            local_values=LocalValues(),
+            volume_integral=VolumeIntegral(),
+            surface_integral=SurfaceIntegral(),
+            )
+    container.configure_traits()
 
     #gui.start_event_loop()
