@@ -332,6 +332,39 @@ class Problem(HasTraits):
     exposure = CInt(10, label="Exposure", )
     data = Instance(Partner)
 
+    company = Instance( Company )
+
+    view = View( 
+        Item( name       = 'company',   
+              editor     = tree_editor, 
+              show_label = False
+        ),
+        title     = 'Company Structure',
+        buttons   = [ 'OK' ],
+        resizable = True,
+        style     = 'custom',
+        width     = .3,
+        height    = .3
+    )
+
+demo2 = Problem( 
+    company = Company(
+        name        = 'Enthought', 
+        employees   = [ dave, martin, duncan, jason, mike ],
+        departments = [ 
+            Department( 
+                name      = 'Business', 
+                employees = [ jason, mike ]
+            ),
+            Department(
+                name      = 'Scientific',
+                employees = [ dave, martin, duncan ]
+            )
+        ]
+    )
+)
+
+
 class LocalValues(HasTraits):
     string = String()
 
@@ -371,7 +404,7 @@ if __name__ == '__main__':
     #window = MainWindow()
     #window.open()
 
-    container = Container(problem=Problem(data=demo),
+    container = Container(problem=demo2,
             local_values=LocalValues(),
             volume_integral=VolumeIntegral(),
             surface_integral=SurfaceIntegral(),
