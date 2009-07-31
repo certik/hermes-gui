@@ -308,25 +308,6 @@ duncan = Employee( name  = 'Duncan',
                    title = 'Consultant',
                    phone = '526-1057' )
 
-# Create the demo:                   
-demo = Partner( 
-    name    = 'Enthought, Inc.',
-    company = Company(
-        name        = 'Enthought', 
-        employees   = [ dave, martin, duncan, jason, mike ],
-        departments = [ 
-            Department( 
-                name      = 'Business', 
-                employees = [ jason, mike ]
-            ),
-            Department(
-                name      = 'Scientific',
-                employees = [ dave, martin, duncan ]
-            )
-        ]
-    )
-)
-
 class Problem(HasTraits):
     gain = Enum(1, 2, 3, )
     exposure = CInt(10, label="Exposure", )
@@ -346,23 +327,6 @@ class Problem(HasTraits):
         width     = .3,
         height    = .3
     )
-
-demo2 = Problem( 
-    company = Company(
-        name        = 'Enthought', 
-        employees   = [ dave, martin, duncan, jason, mike ],
-        departments = [ 
-            Department( 
-                name      = 'Business', 
-                employees = [ jason, mike ]
-            ),
-            Department(
-                name      = 'Scientific',
-                employees = [ dave, martin, duncan ]
-            )
-        ]
-    )
-)
 
 
 class LocalValues(HasTraits):
@@ -404,7 +368,25 @@ if __name__ == '__main__':
     #window = MainWindow()
     #window.open()
 
-    container = Container(problem=demo2,
+    problem = Problem(
+        company = Company(
+            name        = 'Enthought',
+            employees   = [ dave, martin, duncan, jason, mike ],
+            departments = [
+                Department(
+                    name      = 'Business',
+                    employees = [ jason, mike ]
+                ),
+                Department(
+                    name      = 'Scientific',
+                    employees = [ dave, martin, duncan ]
+                )
+            ]
+        )
+    )
+
+
+    container = Container(problem=problem,
             local_values=LocalValues(),
             volume_integral=VolumeIntegral(),
             surface_integral=SurfaceIntegral(),
