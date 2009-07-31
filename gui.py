@@ -1,7 +1,9 @@
 #! /usr/bin/env python
 
-from enthought.traits.api import Int, HasTraits, Enum, CInt, String, Instance
-from enthought.traits.ui.api import View, Item, HSplit, VSplit
+from enthought.traits.api import (Int, HasTraits, Enum, CInt, String, Instance,
+        Str)
+from enthought.traits.ui.api import (View, Item, HSplit, VSplit, TreeEditor,
+        TreeNode)
 from enthought.traits.ui.menu import NoButtons
 from enthought.pyface.image_resource import ImageResource
 from enthought.pyface.api import ApplicationWindow, GUI
@@ -9,59 +11,8 @@ from enthought.traits.ui.api import CustomEditor
 from enthought.pyface.action.api import (Action, MenuManager, MenuBarManager,
         StatusBarManager, ToolBarManager, Group, Separator)
 
-# DockControl style to use:
-style1 = 'horizontal'
-style2 = 'vertical'
-
-image1 = ImageResource( 'folder' )
-image2 = ImageResource( 'gear' )
-
-def create_dock_window ( parent, editor ):
-    """ Creates a window for editing a workflow canvas.
-    """
-    window  = DockWindow( parent ).control
-    button1 = wx.Button( window, -1, 'Button 1' )
-    button2 = wx.Button( window, -1, 'Button 2' )
-    button3 = wx.Button( window, -1, 'Button 3' )
-    button4 = wx.Button( window, -1, 'Button 4' )
-    button5 = wx.Button( window, -1, 'Button 5' )
-    button6 = wx.Button( window, -1, 'Button 6' )
-    sizer   = DockSizer( contents =
-                  [ DockControl( name      = 'Button 1',
-                                 image     = image1,
-                                 closeable = True,
-                                 control   = button1,
-                                 style     = style1 ),
-                    [ DockControl( name      = 'Button 2',
-                                   image     = image1,
-                                   closeable = True,
-                                   height    = 400,
-                                   control   = button2,
-                                   style   = style1 ),
-                      ( [ DockControl( name      = 'Button 3',
-                                     image     = image2,
-                                     resizable = False,
-                                       control   = button3,
-                                       style     = style2 ),
-                          DockControl( name      = 'Button 4',
-                                       image     = image2,
-                                       resizable = False,
-                                       control   = button4,
-                                       style     = style2 ) ],
-                        [  DockControl( name      = 'Button 5',
-                                       resizable = False,
-                                       control   = button5,
-                                       style     = style2 ),
-                          DockControl( name      = 'Button 6',
-                                       resizable = False,
-                                       control   = button6,
-                                       style     = style2 ) ] )
-                    ]
-                  ] )
-    window.SetSizer( sizer )
-    window.SetAutoLayout( True )
-
-    return window
+from enthought.traits.api import HasTraits, Str, Regex, List, Instance
+from enthought.traits.ui.api import Item, View, TreeEditor, TreeNode
 
 class MainWindow(ApplicationWindow):
     """ The main application window. """
@@ -244,40 +195,202 @@ class MainWindow(ApplicationWindow):
 
         return
 
-    def _create_contents(self, parent):
-        container = Container(camera=Camera(), display=TextDisplay())
-        #editor    = CustomEditor(create_dock_window)
-        return ApplicationWindow._create_contents(self, parent)
-        #return container
+class NodeProblem(HasTraits):
+    name = Str("NodeProblem")
 
+class NodeBC(HasTraits):
+    name = Str("Boundary cond")
 
-class Camera(HasTraits):
+class NodeMaterials(HasTraits):
+    name = Str("Boundary cond")
+
+no_view = View()
+
+class Problem(HasTraits):
     gain = Enum(1, 2, 3, )
     exposure = CInt(10, label="Exposure", )
+    n = NodeProblem
+    view = View(
+            Item("gain"),
+            Item(
+                name="wind",
+                editor = TreeEditor(
+            nodes = [
+                TreeNode( node_for  = [ NodeProblem ],
+                          auto_open = True,
+                          children  = '',
+                          label     = 'name',
+                          )
+                ])
+            ))
 
-class TextDisplay(HasTraits):
+class LocalValues(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class VolumeIntegral(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class SurfaceIntegral(HasTraits):
     string = String()
 
     view= View( Item('string', show_label=False, springy=True, style='custom' ))
 
 class Container(HasTraits):
-    camera = Instance(Camera)
-    display = Instance(TextDisplay)
+    problem = Instance(Problem)
+    local_values = Instance(LocalValues)
+    volume_integral = Instance(VolumeIntegral)
+    surface_integral = Instance(SurfaceIntegral)
 
-    view = View(VSplit(
-                Item('camera', style='custom', show_label=False, ),
-                Item('display', style='custom', show_label=False, ),
-                )
+    view = View(HSplit(
+                Item('problem', style='custom'),
+                VSplit(
+                    Item('local_values', style='custom'),
+                    Item('volume_integral', style='custom'),
+                    Item('surface_integral', style='custom'),
+                    )
+                ),
+                resizable=True,
             )
 
+
+
+class Employee ( HasTraits ):
+    """ Defines a company employee. """
+
+    name  = Str( '<unknown>' )
+    title = Str
+    phone = Regex( regex = r'\d\d\d-\d\d\d\d' )
+
+    def default_title ( self ):
+        self.title = 'Senior Engineer'
+
+class Department ( HasTraits ):
+    """ Defines a department with employees. """
+
+    name      = Str( '<unknown>' )
+    employees = List( Employee )
+
+class Company ( HasTraits ):
+    """ Defines a company with departments and employees. """
+
+    name        = Str( '<unknown>' )
+    departments = List( Department )
+    employees   = List( Employee )
+
+# Create an empty view for objects that have no data to display:    
+no_view = View()
+
+# Define the TreeEditor used to display the hierarchy:
+tree_editor = TreeEditor( 
+    nodes = [
+        TreeNode( node_for  = [ Company ],
+                  auto_open = True,
+                  children  = '',
+                  label     = 'name',
+                  view      = View( [ 'name' ] )
+        ),
+        TreeNode( node_for  = [ Company ],
+                  auto_open = True,
+                  children  = 'departments',
+                  label     = '=Departments',
+                  view      = no_view,
+                  add       = [ Department ],
+        ),
+        TreeNode( node_for  = [ Company ],
+                  auto_open = True,
+                  children  = 'employees',
+                  label     = '=Employees',
+                  view      = no_view,
+                  add       = [ Employee ]
+        ),
+        TreeNode( node_for  = [ Department ],
+                  auto_open = True,
+                  children  = 'employees',
+                  label     = 'name',
+                  view      = View( [ 'name' ] ),
+                  add       = [ Employee ]
+        ),
+        TreeNode( node_for  = [ Employee ],
+                  auto_open = True,
+                  label     = 'name',
+                  view      = View( [ 'name', 'title', 'phone' ] )
+        )
+    ]
+)
+
+class Partner ( HasTraits ):
+    """ Defines a business partner."""
+    
+    name    = Str( '<unknown>' )
+    company = Instance( Company )
+
+    view = View( 
+        Item( name       = 'company',   
+              editor     = tree_editor, 
+              show_label = False
+        ),
+        title     = 'Company Structure',
+        buttons   = [ 'OK' ],
+        resizable = True,
+        style     = 'custom',
+        width     = .3,
+        height    = .3
+    )
+
+# Create an example data structure:    
+jason  = Employee( name  = 'Jason',  
+                   title = 'Senior Engineer', 
+                   phone = '536-1057' )
+mike   = Employee( name  = 'Mike',
+                   title = 'Senior Engineer',
+                   phone = '536-1057' )
+dave   = Employee( name  = 'Dave',
+                   title = 'Senior Software Developer',
+                   phone = '536-1057' )
+martin = Employee( name  = 'Martin', 
+                   title = 'Senior Engineer',
+                   phone = '536-1057' )
+duncan = Employee( name  = 'Duncan', 
+                   title = 'Consultant',
+                   phone = '526-1057' )
+
+# Create the demo:                   
+demo = Partner( 
+    name    = 'Enthought, Inc.',
+    company = Company(
+        name        = 'Enthought', 
+        employees   = [ dave, martin, duncan, jason, mike ],
+        departments = [ 
+            Department( 
+                name      = 'Business', 
+                employees = [ jason, mike ]
+            ),
+            Department(
+                name      = 'Scientific',
+                employees = [ dave, martin, duncan ]
+            )
+        ]
+    )
+)
 
 if __name__ == '__main__':
     gui = GUI()
 
-    window = MainWindow()
-    window.open()
+    #window = MainWindow()
+    #window.open()
 
-    container = Container(camera=Camera(), display=TextDisplay())
-    container.configure_traits()
+    n = NodeProblem(name = "tst")
+    demo.configure_traits()
 
-    gui.start_event_loop()
+    #container = Container(problem=Problem(n=n),
+    #        local_values=LocalValues(),
+    #        volume_integral=VolumeIntegral(),
+    #        surface_integral=SurfaceIntegral(),
+    #        )
+    #container.configure_traits()
+
+    #gui.start_event_loop()
