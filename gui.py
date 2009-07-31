@@ -17,9 +17,10 @@ from enthought.traits.ui.api import Item, View, TreeEditor, TreeNode
 class MainWindow(ApplicationWindow):
     """ The main application window. """
 
-    def __init__(self, **traits):
+    def __init__(self, container, **traits):
         """ Creates a new application window. """
         super(MainWindow, self).__init__(**traits)
+        self._container = container
 
         exit_action = Action(
                 name='E&xit',
@@ -32,6 +33,7 @@ class MainWindow(ApplicationWindow):
         new_action = Action(
                 name='&New...',
                 accelerator="CTRL+N",
+                on_perform=self.create_new,
                 image=ImageResource("images/document-new.png")
                 )
         open_action = Action(
@@ -195,6 +197,9 @@ class MainWindow(ApplicationWindow):
 
         return
 
+    def create_new(self):
+        self._container.configure_traits()
+
 class NodeProblem(HasTraits):
     name = Str("NodeProblem")
 
@@ -325,9 +330,6 @@ class Container(HasTraits):
 if __name__ == '__main__':
     gui = GUI()
 
-    #window = MainWindow()
-    #window.open()
-
     jason  = Employee( name  = 'Jason',
                        title = 'Senior Engineer',
                        phone = '536-1057' )
@@ -367,6 +369,9 @@ if __name__ == '__main__':
             volume_integral=VolumeIntegral(),
             surface_integral=SurfaceIntegral(),
             )
-    container.configure_traits()
 
-    #gui.start_event_loop()
+    window = MainWindow(container)
+    window.open()
+
+
+    gui.start_event_loop()
