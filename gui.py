@@ -99,6 +99,16 @@ class MainWindow(ApplicationWindow):
             Action(name='Zoom out',
                 image=ImageResource("images/zoom-out.png")),
             ]
+        problem_actions1 = [
+            Action(name='Operate on nodes',
+                image=ImageResource("images/scene-node.png")),
+            Action(name='Operate on edges',
+                image=ImageResource("images/scene-edge.png")),
+            Action(name='Operate on labels',
+                image=ImageResource("images/scene-label.png")),
+            Action(name='Postprocessor',
+                image=ImageResource("images/scene-postprocessor.png")),
+            ]
 
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
@@ -135,7 +145,7 @@ class MainWindow(ApplicationWindow):
                 Group(Action(name="Scene properties")),
                 name='&View'),
             MenuManager(
-                Action(name='Options'),
+                Group(*problem_actions1),
                 name='&Problem'),
             MenuManager(
                 Action(name='Options'),
@@ -154,17 +164,18 @@ class MainWindow(ApplicationWindow):
 
         self.tool_bar_managers = [
             ToolBarManager(
-                exit_action, name='Tool Bar 3', show_tool_names=False
+                *problem_actions1,
+                name='Problem Tool Bar', show_tool_names=False
             ),
             ToolBarManager(
                 *zoom_actions,
-                name='Tool Bar 2', show_tool_names=False
+                name='Zoom Tool Bar', show_tool_names=False
             ),
             ToolBarManager(
                 new_action,
                 open_action,
                 save_action,
-                name='Tool Bar 1', show_tool_names=False
+                name='File Tool Bar', show_tool_names=False
             ),
 
         ]
