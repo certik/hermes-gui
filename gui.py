@@ -62,10 +62,6 @@ def create_dock_window ( parent, editor ):
 class MainWindow(ApplicationWindow):
     """ The main application window. """
 
-    ###########################################################################
-    # 'object' interface.
-    ###########################################################################
-
     def __init__(self, **traits):
         """ Creates a new application window. """
         super(MainWindow, self).__init__(**traits)
@@ -74,24 +70,28 @@ class MainWindow(ApplicationWindow):
 
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
-                Action(name='New...'),
-                Action(name='Open...'),
-                Action(name='Save...'),
-                Action(name='Save as...'),
-                Action(name='Close'),
-                Separator(),
-                Action(name='Import DXF...'),
-                Action(name='Export DXF...'),
-                Separator(),
-                Action(name='Export image...'),
-                Separator(),
-                Action(name='Recent files ->'),
-                exit_action,
+                Group(
+                    Action(name='New...'),
+                    Action(name='Open...'),
+                    Action(name='Save...'),
+                    Action(name='Save as...'),
+                    Action(name='Close'),
+                ),
+                Group(
+                    Action(name='Import DXF...'),
+                    Action(name='Export DXF...'),
+                ),
+                Group(
+                    Action(name='Export image...'),
+                ),
+                Group(
+                    Action(name='Recent files ->'),
+                    exit_action,
+                ),
                 name='&File'),
             MenuManager(
-                Action(name='Paste'),
-                Separator(),
-                Action(name='Options'),
+                Group( Action(name='Paste') ),
+                Group( Action(name='Options') ),
                 name='&Edit'),
             MenuManager(
                 Action(name='Options'),
@@ -104,14 +104,12 @@ class MainWindow(ApplicationWindow):
                 name='Tools'),
             MenuManager(
                 Group(
-                Action(name='Help'),
-                Action(name='Shortcuts'),
-                id = "3xx",
+                    Action(name='Help'),
+                    Action(name='Shortcuts'),
                 ),
                 Group(
-                Action(name='About Hermes-gui'),
-                Action(name='About Traits'),
-                id = "xx",
+                    Action(name='About Hermes-gui'),
+                    Action(name='About Traits'),
                 ),
                 name='&Help'),
         )
