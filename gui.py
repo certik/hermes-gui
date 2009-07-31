@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
-from enthought.traits.api import Int, HasTraits
-from enthought.traits.ui.api import View, Item
+from enthought.traits.api import Int, HasTraits, Enum, CInt, String, Instance
+from enthought.traits.ui.api import View, Item, HSplit, VSplit
 from enthought.traits.ui.menu import NoButtons
 from enthought.pyface.image_resource import ImageResource
 from enthought.pyface.api import ApplicationWindow, GUI
@@ -245,13 +245,39 @@ class MainWindow(ApplicationWindow):
         return
 
     def _create_contents(self, parent):
-        editor    = CustomEditor(create_dock_window)
+        container = Container(camera=Camera(), display=TextDisplay())
+        #editor    = CustomEditor(create_dock_window)
         return ApplicationWindow._create_contents(self, parent)
+        #return container
+
+
+class Camera(HasTraits):
+    gain = Enum(1, 2, 3, )
+    exposure = CInt(10, label="Exposure", )
+
+class TextDisplay(HasTraits):
+    string = String()
+
+    view= View( Item('string', show_label=False, springy=True, style='custom' ))
+
+class Container(HasTraits):
+    camera = Instance(Camera)
+    display = Instance(TextDisplay)
+
+    view = View(VSplit(
+                Item('camera', style='custom', show_label=False, ),
+                Item('display', style='custom', show_label=False, ),
+                )
+            )
+
 
 if __name__ == '__main__':
     gui = GUI()
 
     window = MainWindow()
     window.open()
+
+    container = Container(camera=Camera(), display=TextDisplay())
+    container.configure_traits()
 
     gui.start_event_loop()
