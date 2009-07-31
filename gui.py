@@ -111,23 +111,23 @@ class MainWindow(ApplicationWindow):
             ]
         problem_actions2 = [
             Action(name='Select region',
-                image=ImageResource("images/scene-node.png")),
+                image=ImageResource("images/scene-select-region.png")),
             Action(name='Transform',
-                image=ImageResource("images/scene-edge.png")),
+                image=ImageResource("images/scene-transform.png")),
             ]
         problem_actions3 = [
             Action(name='Local Values',
-                image=ImageResource("images/scene-node.png")),
+                image=ImageResource("images/mode-localpointvalue.png")),
             Action(name='Surface Integrals',
-                image=ImageResource("images/scene-edge.png")),
+                image=ImageResource("images/mode-surfaceintegral.png")),
             Action(name='Volume Integrals',
-                image=ImageResource("images/scene-edge.png")),
+                image=ImageResource("images/mode-volumeintegral.png")),
             ]
         problem_actions4 = [
             Action(name='Mesh area',
-                image=ImageResource("images/scene-node.png")),
+                image=ImageResource("images/scene-mesh.png")),
             Action(name='Solve problem',
-                image=ImageResource("images/scene-edge.png")),
+                image=ImageResource("images/system-run.png")),
             ]
 
         self.menu_bar_manager = MenuBarManager(
@@ -170,7 +170,8 @@ class MainWindow(ApplicationWindow):
                 Group(*problem_actions2),
                 Group(*problem_actions3),
                 Group(*problem_actions4),
-                Group(Action(name="Problem properties")),
+                Group(Action(name="Problem properties",
+                    image=ImageResource("images/scene-properties.png"))),
                 name='&Problem'),
             MenuManager(
                 Action(name='Options'),
