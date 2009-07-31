@@ -272,25 +272,6 @@ tree_editor = TreeEditor(
     ]
 )
 
-class Partner ( HasTraits ):
-    """ Defines a business partner."""
-    
-    name    = Str( '<unknown>' )
-    company = Instance( Company )
-
-    view = View( 
-        Item( name       = 'company',   
-              editor     = tree_editor, 
-              show_label = False
-        ),
-        title     = 'Company Structure',
-        buttons   = [ 'OK' ],
-        resizable = True,
-        style     = 'custom',
-        width     = .3,
-        height    = .3
-    )
-
 # Create an example data structure:    
 jason  = Employee( name  = 'Jason',  
                    title = 'Senior Engineer', 
@@ -309,10 +290,6 @@ duncan = Employee( name  = 'Duncan',
                    phone = '526-1057' )
 
 class Problem(HasTraits):
-    gain = Enum(1, 2, 3, )
-    exposure = CInt(10, label="Exposure", )
-    data = Instance(Partner)
-
     company = Instance( Company )
 
     view = View( 
