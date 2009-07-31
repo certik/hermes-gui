@@ -1,7 +1,11 @@
 #! /usr/bin/env python
 
+from enthought.traits.api import Int, HasTraits
+from enthought.traits.ui.api import View, Item
+from enthought.traits.ui.menu import NoButtons
 from enthought.pyface.image_resource import ImageResource
 from enthought.pyface.api import ApplicationWindow, GUI
+from enthought.traits.ui.api import CustomEditor
 from enthought.pyface.action.api import (Action, MenuManager, MenuBarManager,
         StatusBarManager, ToolBarManager, Group, Separator)
 
@@ -85,6 +89,16 @@ class MainWindow(ApplicationWindow):
                 name='Save...',
                 image=ImageResource("images/document-save.png")
                 )
+        zoom_actions = [
+            Action(name='Zoom best fit',
+                image=ImageResource("images/zoom-best-fit.png")),
+            Action(name='Zoom region',
+                image=ImageResource("images/zoom-region.png")),
+            Action(name='Zoom in',
+                image=ImageResource("images/zoom-in.png")),
+            Action(name='Zoom out',
+                image=ImageResource("images/zoom-out.png")),
+            ]
 
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
@@ -116,7 +130,9 @@ class MainWindow(ApplicationWindow):
                 Group( Action(name='Options') ),
                 name='&Edit'),
             MenuManager(
-                Action(name='Options'),
+                Group(*zoom_actions),
+                Group(Action(name="Fullscreen mode")),
+                Group(Action(name="Scene properties")),
                 name='&View'),
             MenuManager(
                 Action(name='Options'),
@@ -141,7 +157,8 @@ class MainWindow(ApplicationWindow):
                 exit_action, name='Tool Bar 3', show_tool_names=False
             ),
             ToolBarManager(
-                exit_action, name='Tool Bar 2', show_tool_names=False
+                *zoom_actions,
+                name='Tool Bar 2', show_tool_names=False
             ),
             ToolBarManager(
                 new_action,
@@ -157,21 +174,11 @@ class MainWindow(ApplicationWindow):
 
         return
 
-#class App(HasPrivateTraits):
-#    dummy = Int
-#
-#    view = View( [ Item( 'dummy',
-#                         resizable = True,
-#                         editor    = CustomEditor(create_dock_window) ),
-#                   '|<>' ],
-#                 title     = 'DockWindow Test',
-#                 resizable = True,
-#                 width     = 0.5,
-#                 height    = 0.5,
-#                 buttons   = NoButtons )
+    def _create_contents(self, parent):
+        editor    = CustomEditor(create_dock_window)
+        return ApplicationWindow._create_contents(self, parent)
 
 if __name__ == '__main__':
-    #App().configure_traits()
     gui = GUI()
 
     window = MainWindow()
