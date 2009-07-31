@@ -72,6 +72,7 @@ class MainWindow(ApplicationWindow):
 
         exit_action = Action(
                 name='E&xit',
+                accelerator="CTRL+Q",
                 on_perform=self.close,
                 image=ImageResource("images/application-exit.png"),
                 tooltip="Exit the application"
@@ -79,14 +80,17 @@ class MainWindow(ApplicationWindow):
 
         new_action = Action(
                 name='&New...',
+                accelerator="CTRL+N",
                 image=ImageResource("images/document-new.png")
                 )
         open_action = Action(
                 name='&Open...',
+                accelerator="CTRL+O",
                 image=ImageResource("images/document-open.png")
                 )
         save_action = Action(
                 name='&Save',
+                accelerator="CTRL+S",
                 image=ImageResource("images/document-save.png")
                 )
         zoom_actions = [
@@ -95,18 +99,24 @@ class MainWindow(ApplicationWindow):
             Action(name='Zoom region',
                 image=ImageResource("images/zoom-region.png")),
             Action(name='Zoom in',
+                accelerator="Ctrl++",
                 image=ImageResource("images/zoom-in.png")),
             Action(name='Zoom out',
+                accelerator="Ctrl+-",
                 image=ImageResource("images/zoom-out.png")),
             ]
         problem_actions1 = [
             Action(name='Operate on &nodes',
+                accelerator="F5",
                 image=ImageResource("images/scene-node.png")),
             Action(name='Operate on &edges',
+                accelerator="F6",
                 image=ImageResource("images/scene-edge.png")),
             Action(name='Operate on &labels',
+                accelerator="F7",
                 image=ImageResource("images/scene-label.png")),
             Action(name='&Postprocessor',
+                accelerator="F8",
                 image=ImageResource("images/scene-postprocessor.png")),
             ]
         problem_actions2 = [
@@ -127,6 +137,7 @@ class MainWindow(ApplicationWindow):
             Action(name='Mesh area',
                 image=ImageResource("images/scene-mesh.png")),
             Action(name='Solve problem',
+                accelerator="Alt+S",
                 image=ImageResource("images/system-run.png")),
             ]
 
@@ -137,8 +148,10 @@ class MainWindow(ApplicationWindow):
                     open_action,
                     save_action,
                     Action(name='Save &As...',
+                        accelerator="Ctrl+Shift+S",
                         image=ImageResource("images/document-save-as.png")),
-                    Action(name='Close'),
+                    Action(name='Close',
+                        accelerator="Ctrl+W"),
                 ),
                 Group(
                     Action(name='Import DXF...'),
@@ -155,6 +168,7 @@ class MainWindow(ApplicationWindow):
             MenuManager(
                 Group(
                     Action(name='&Paste',
+                        accelerator="Ctrl+V",
                         image=ImageResource("images/edit-paste.png"))
                     ),
                 Group(
@@ -164,7 +178,7 @@ class MainWindow(ApplicationWindow):
                 name='&Edit'),
             MenuManager(
                 Group(*zoom_actions),
-                Group(Action(name="Fullscreen mode")),
+                Group(Action(name="Fullscreen mode", accelerator="F11")),
                 Group(Action(name="&Scene properties",
                     image=ImageResource("images/scene-properties.png"))),
                 name='&View'),
@@ -192,6 +206,7 @@ class MainWindow(ApplicationWindow):
             MenuManager(
                 Group(
                     Action(name='&Help',
+                        accelerator="F1",
                         image=ImageResource("images/help-browser.png")),
                     Action(name='Shortcuts'),
                 ),
