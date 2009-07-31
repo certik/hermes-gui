@@ -66,15 +66,24 @@ class MainWindow(ApplicationWindow):
         """ Creates a new application window. """
         super(MainWindow, self).__init__(**traits)
 
-        exit_action = Action(name='E&xit', on_perform=self.close)
+        exit_action = Action(
+                name='E&xit',
+                on_perform=self.close,
+                image=ImageResource("images/application-exit.png"),
+                tooltip="Exit the application"
+                )
 
         self.menu_bar_manager = MenuBarManager(
             MenuManager(
                 Group(
-                    Action(name='New...'),
-                    Action(name='Open...'),
-                    Action(name='Save...'),
-                    Action(name='Save as...'),
+                    Action(name='New...',
+                        image=ImageResource("images/document-new.png")),
+                    Action(name='Open...',
+                        image=ImageResource("images/document-open.png")),
+                    Action(name='Save...',
+                        image=ImageResource("images/document-save.png")),
+                    Action(name='Save as...',
+                        image=ImageResource("images/document-save-as.png")),
                     Action(name='Close'),
                 ),
                 Group(
@@ -90,7 +99,10 @@ class MainWindow(ApplicationWindow):
                 ),
                 name='&File'),
             MenuManager(
-                Group( Action(name='Paste') ),
+                Group(
+                    Action(name='Paste',
+                        image=ImageResource("images/edit-paste.png"))
+                    ),
                 Group( Action(name='Options') ),
                 name='&Edit'),
             MenuManager(
