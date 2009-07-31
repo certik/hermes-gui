@@ -1,15 +1,6 @@
 #! /usr/bin/env python
 
-import wx
-import sys
-
-
-from enthought.traits.api import *
-from enthought.traits.ui.api import *
-from enthought.traits.ui.menu import *
-from enthought.pyface.dock.api import *
 from enthought.pyface.image_resource import ImageResource
-
 from enthought.pyface.api import ApplicationWindow, GUI
 from enthought.pyface.action.api import (Action, MenuManager, MenuBarManager,
         StatusBarManager, ToolBarManager, Group, Separator)
@@ -144,18 +135,18 @@ class MainWindow(ApplicationWindow):
 
         return
 
-class App(HasPrivateTraits):
-    dummy = Int
-
-    view = View( [ Item( 'dummy',
-                         resizable = True,
-                         editor    = CustomEditor(create_dock_window) ),
-                   '|<>' ],
-                 title     = 'DockWindow Test',
-                 resizable = True,
-                 width     = 0.5,
-                 height    = 0.5,
-                 buttons   = NoButtons )
+#class App(HasPrivateTraits):
+#    dummy = Int
+#
+#    view = View( [ Item( 'dummy',
+#                         resizable = True,
+#                         editor    = CustomEditor(create_dock_window) ),
+#                   '|<>' ],
+#                 title     = 'DockWindow Test',
+#                 resizable = True,
+#                 width     = 0.5,
+#                 height    = 0.5,
+#                 buttons   = NoButtons )
 
 if __name__ == '__main__':
     #App().configure_traits()
