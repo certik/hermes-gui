@@ -95,7 +95,28 @@ class MainWindow(ApplicationWindow):
                 Separator(),
                 Action(name='Recent files ->'),
                 exit_action,
-                name='&File')
+                name='&File'),
+            MenuManager(
+                Action(name='Paste'),
+                Separator(),
+                Action(name='Options'),
+                name='&Edit'),
+            MenuManager(
+                Action(name='Options'),
+                name='&View'),
+            MenuManager(
+                Action(name='Options'),
+                name='&Problem'),
+            MenuManager(
+                Action(name='Options'),
+                name='Tools'),
+            MenuManager(
+                Action(name='Help'),
+                Action(name='Shortcuts'),
+                Separator(),
+                Action(name='About Hermes-gui'),
+                Action(name='About Traits'),
+                name='&Help'),
         )
 
         self.tool_bar_managers = [
