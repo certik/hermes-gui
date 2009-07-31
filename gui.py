@@ -178,11 +178,13 @@ class MainWindow(ApplicationWindow):
                 name='Tools'),
             MenuManager(
                 Group(
-                    Action(name='Help'),
+                    Action(name='Help',
+                        image=ImageResource("images/help-browser.png")),
                     Action(name='Shortcuts'),
                 ),
                 Group(
-                    Action(name='About Hermes-gui'),
+                    Action(name='About Hermes-gui',
+                        image=ImageResource("images/about.png")),
                     Action(name='About Traits'),
                 ),
                 name='&Help'),
