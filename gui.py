@@ -100,14 +100,34 @@ class MainWindow(ApplicationWindow):
                 image=ImageResource("images/zoom-out.png")),
             ]
         problem_actions1 = [
-            Action(name='Operate on nodes',
+            Action(name='Operate on &nodes',
                 image=ImageResource("images/scene-node.png")),
-            Action(name='Operate on edges',
+            Action(name='Operate on &edges',
                 image=ImageResource("images/scene-edge.png")),
-            Action(name='Operate on labels',
+            Action(name='Operate on &labels',
                 image=ImageResource("images/scene-label.png")),
             Action(name='Postprocessor',
                 image=ImageResource("images/scene-postprocessor.png")),
+            ]
+        problem_actions2 = [
+            Action(name='Select region',
+                image=ImageResource("images/scene-node.png")),
+            Action(name='Transform',
+                image=ImageResource("images/scene-edge.png")),
+            ]
+        problem_actions3 = [
+            Action(name='Local Values',
+                image=ImageResource("images/scene-node.png")),
+            Action(name='Surface Integrals',
+                image=ImageResource("images/scene-edge.png")),
+            Action(name='Volume Integrals',
+                image=ImageResource("images/scene-edge.png")),
+            ]
+        problem_actions4 = [
+            Action(name='Mesh area',
+                image=ImageResource("images/scene-node.png")),
+            Action(name='Solve problem',
+                image=ImageResource("images/scene-edge.png")),
             ]
 
         self.menu_bar_manager = MenuBarManager(
@@ -146,6 +166,11 @@ class MainWindow(ApplicationWindow):
                 name='&View'),
             MenuManager(
                 Group(*problem_actions1),
+                Group(Action(name="Add ->")),
+                Group(*problem_actions2),
+                Group(*problem_actions3),
+                Group(*problem_actions4),
+                Group(Action(name="Problem properties")),
                 name='&Problem'),
             MenuManager(
                 Action(name='Options'),
@@ -164,7 +189,10 @@ class MainWindow(ApplicationWindow):
 
         self.tool_bar_managers = [
             ToolBarManager(
-                *problem_actions1,
+                Group(*problem_actions1),
+                Group(*problem_actions2),
+                Group(*problem_actions3),
+                Group(*problem_actions4),
                 name='Problem Tool Bar', show_tool_names=False
             ),
             ToolBarManager(
