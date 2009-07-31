@@ -1,27 +1,13 @@
 #! /usr/bin/env python
 
-
 import wx
 import sys
 
-from enthought.traits.api \
-    import *
-    
-from enthought.traits.ui.api \
-    import *
-    
-from enthought.traits.ui.menu \
-    import *
-    
-from enthought.pyface.dock.api \
-    import *
-           
-from enthought.pyface.image_resource \
-    import ImageResource
-
-#-------------------------------------------------------------------------------
-#  Global data:  
-#-------------------------------------------------------------------------------
+from enthought.traits.api import *
+from enthought.traits.ui.api import *
+from enthought.traits.ui.menu import *
+from enthought.pyface.dock.api import *
+from enthought.pyface.image_resource import ImageResource
 
 # DockControl style to use:
 style1 = 'horizontal'
@@ -30,11 +16,7 @@ style2 = 'vertical'
 image1 = ImageResource( 'folder' )
 image2 = ImageResource( 'gear' )
 
-#-------------------------------------------------------------------------------
-#  Creates a DockWindow as a Traits UI widget:
-#-------------------------------------------------------------------------------
-    
-def create_dock_window ( parent, editor ):    
+def create_dock_window ( parent, editor ):
     """ Creates a window for editing a workflow canvas.
     """
     window  = DockWindow( parent ).control
@@ -44,13 +26,13 @@ def create_dock_window ( parent, editor ):
     button4 = wx.Button( window, -1, 'Button 4' )
     button5 = wx.Button( window, -1, 'Button 5' )
     button6 = wx.Button( window, -1, 'Button 6' )
-    sizer   = DockSizer( contents = 
+    sizer   = DockSizer( contents =
                   [ DockControl( name      = 'Button 1',
                                  image     = image1,
                                  closeable = True,
-                                 control   = button1, 
+                                 control   = button1,
                                  style     = style1 ),
-                    [ DockControl( name      = 'Button 2', 
+                    [ DockControl( name      = 'Button 2',
                                    image     = image1,
                                    closeable = True,
                                    height    = 400,
@@ -64,56 +46,35 @@ def create_dock_window ( parent, editor ):
                           DockControl( name      = 'Button 4',
                                        image     = image2,
                                        resizable = False,
-                                       control   = button4, 
+                                       control   = button4,
                                        style     = style2 ) ],
                         [  DockControl( name      = 'Button 5',
                                        resizable = False,
-                                       control   = button5, 
+                                       control   = button5,
                                        style     = style2 ),
                           DockControl( name      = 'Button 6',
                                        resizable = False,
-                                       control   = button6, 
+                                       control   = button6,
                                        style     = style2 ) ] )
                     ]
                   ] )
     window.SetSizer( sizer )
     window.SetAutoLayout( True )
-    
+
     return window
 
-#-------------------------------------------------------------------------------
-#  'TestDock' class:  
-#-------------------------------------------------------------------------------
-
-class TestDock ( HasPrivateTraits ):
-    
-    #---------------------------------------------------------------------------
-    #  Trait definitions:  
-    #---------------------------------------------------------------------------
-        
+class App(HasPrivateTraits):
     dummy = Int
-    
-    #---------------------------------------------------------------------------
-    #  Traits view definitions:  
-    #---------------------------------------------------------------------------
-        
+
     view = View( [ Item( 'dummy',
                          resizable = True,
-                         editor    = CustomEditor( create_dock_window ) ),
+                         editor    = CustomEditor(create_dock_window) ),
                    '|<>' ],
                  title     = 'DockWindow Test',
                  resizable = True,
                  width     = 0.5,
                  height    = 0.5,
                  buttons   = NoButtons )
-                 
-#-------------------------------------------------------------------------------
-#  Run the test program:  
-#-------------------------------------------------------------------------------
-                        
+
 if __name__ == '__main__':
-    if len( sys.argv ) > 1:
-        style1 = style2 = sys.argv[1]
-        if len( sys.argv ) > 2:
-            style2 = sys.argv[2]
-    TestDock().configure_traits()
+    App().configure_traits()
