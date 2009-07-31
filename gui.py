@@ -106,7 +106,7 @@ class MainWindow(ApplicationWindow):
                 image=ImageResource("images/scene-edge.png")),
             Action(name='Operate on &labels',
                 image=ImageResource("images/scene-label.png")),
-            Action(name='Postprocessor',
+            Action(name='&Postprocessor',
                 image=ImageResource("images/scene-postprocessor.png")),
             ]
         problem_actions2 = [
@@ -154,15 +154,18 @@ class MainWindow(ApplicationWindow):
                 name='&File'),
             MenuManager(
                 Group(
-                    Action(name='Paste',
+                    Action(name='&Paste',
                         image=ImageResource("images/edit-paste.png"))
                     ),
-                Group( Action(name='Options') ),
+                Group(
+                    Action(name='Options',
+                        image=ImageResource("images/options.png"))
+                    ),
                 name='&Edit'),
             MenuManager(
                 Group(*zoom_actions),
                 Group(Action(name="Fullscreen mode")),
-                Group(Action(name="Scene properties")),
+                Group(Action(name="&Scene properties")),
                 name='&View'),
             MenuManager(
                 Group(*problem_actions1),
@@ -178,14 +181,14 @@ class MainWindow(ApplicationWindow):
                 name='Tools'),
             MenuManager(
                 Group(
-                    Action(name='Help',
+                    Action(name='&Help',
                         image=ImageResource("images/help-browser.png")),
                     Action(name='Shortcuts'),
                 ),
                 Group(
-                    Action(name='About Hermes-gui',
+                    Action(name='&About Hermes-gui',
                         image=ImageResource("images/about.png")),
-                    Action(name='About Traits'),
+                    Action(name='About &Traits'),
                 ),
                 name='&Help'),
         )
