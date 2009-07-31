@@ -280,7 +280,7 @@ class Problem(HasTraits):
               editor     = tree_editor,
               show_label = False
         ),
-        title     = 'Company Structure',
+        title     = 'Problem',
         buttons   = [ 'OK' ],
         resizable = True,
         style     = 'custom',
@@ -311,7 +311,7 @@ class Container(HasTraits):
     surface_integral = Instance(SurfaceIntegral)
 
     view = View(HSplit(
-                Item('problem', style='custom'),
+                Item('problem', style='custom', show_label=False),
                 VSplit(
                     Item('local_values', style='custom'),
                     Item('volume_integral', style='custom'),
