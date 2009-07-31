@@ -231,11 +231,11 @@ class Company ( HasTraits ):
     departments = List( Department )
     employees   = List( Employee )
 
-# Create an empty view for objects that have no data to display:    
+# Create an empty view for objects that have no data to display:
 no_view = View()
 
 # Define the TreeEditor used to display the hierarchy:
-tree_editor = TreeEditor( 
+tree_editor = TreeEditor(
     nodes = [
         TreeNode( node_for  = [ Company ],
                   auto_open = True,
@@ -272,29 +272,12 @@ tree_editor = TreeEditor(
     ]
 )
 
-# Create an example data structure:    
-jason  = Employee( name  = 'Jason',  
-                   title = 'Senior Engineer', 
-                   phone = '536-1057' )
-mike   = Employee( name  = 'Mike',
-                   title = 'Senior Engineer',
-                   phone = '536-1057' )
-dave   = Employee( name  = 'Dave',
-                   title = 'Senior Software Developer',
-                   phone = '536-1057' )
-martin = Employee( name  = 'Martin', 
-                   title = 'Senior Engineer',
-                   phone = '536-1057' )
-duncan = Employee( name  = 'Duncan', 
-                   title = 'Consultant',
-                   phone = '526-1057' )
-
 class Problem(HasTraits):
     company = Instance( Company )
 
-    view = View( 
-        Item( name       = 'company',   
-              editor     = tree_editor, 
+    view = View(
+        Item( name       = 'company',
+              editor     = tree_editor,
               show_label = False
         ),
         title     = 'Company Structure',
@@ -344,6 +327,22 @@ if __name__ == '__main__':
 
     #window = MainWindow()
     #window.open()
+
+    jason  = Employee( name  = 'Jason',
+                       title = 'Senior Engineer',
+                       phone = '536-1057' )
+    mike   = Employee( name  = 'Mike',
+                       title = 'Senior Engineer',
+                       phone = '536-1057' )
+    dave   = Employee( name  = 'Dave',
+                       title = 'Senior Software Developer',
+                       phone = '536-1057' )
+    martin = Employee( name  = 'Martin',
+                       title = 'Senior Engineer',
+                       phone = '536-1057' )
+    duncan = Employee( name  = 'Duncan',
+                       title = 'Consultant',
+                       phone = '526-1057' )
 
     problem = Problem(
         company = Company(
