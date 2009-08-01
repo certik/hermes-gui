@@ -112,7 +112,7 @@ class ActionSet(WorkbenchActionSet):
         Group(id='problem_actions4', path='MenuBar/Problem'),
         Group(id='problem_actions5', path='MenuBar/Problem'),
 
-        #Group(id='zoom_actions1', path='MenuBar/Problem'),
+        Group(id='zoom_actions1', path='MenuBar/Problem'),
         #Group(id='zoom_actions2', path='MenuBar/View'),
         #Group(id='zoom_actions3', path='MenuBar/View'),
     ]
