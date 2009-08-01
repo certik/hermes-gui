@@ -8,16 +8,12 @@ import new
 
 def MAction(_name, **kwargs):
     action = new.classobj(_name, (PAction,), kwargs)
+    globals()[_name] = action
 
-NewAction2 = MAction("NewAction",
+MAction("NewAction",
         name='&New...',
         accelerator="CTRL+N",
-        image=ImageResource("images/document-new.png"))
-
-class NewAction(PAction):
-    name='&New...'
-    accelerator="CTRL+N"
-    image=ImageResource("../../images/document-new.png")
+        image=ImageResource("../../images/document-new.png"))
 
 
 class ActionSet(WorkbenchActionSet):
