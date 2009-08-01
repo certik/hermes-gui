@@ -119,12 +119,12 @@ class ActionSet(WorkbenchActionSet):
     ]
 
     tool_bars = [
+        ToolBar(name='File'),
+        ToolBar(name='Zoom',
+            groups=["zoom_actions1"]),
         ToolBar(name='Problem',
             groups=["problem_actions1", "problem_actions2",
                 "problem_actions3", "problem_actions4"]),
-        ToolBar(name='Zoom',
-            groups=["zoom_actions1"]),
-        ToolBar(name='File'),
     ]
 
     actions = [
