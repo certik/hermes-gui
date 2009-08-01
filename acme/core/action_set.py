@@ -101,12 +101,13 @@ class ActionSet(WorkbenchActionSet):
         Menu(name='&Edit', path='MenuBar', after="File"),
         Menu(name='&View', path='MenuBar', after="Edit"),
         Menu(name='&Problem', path='MenuBar', after="View"),
-            Menu(name='Add', path='MenuBar/Problem'),
+            Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
     ]
 
     groups = [
 
         Group(id='problem_actions1', path='MenuBar/Problem'),
+        Group(id='problem_add', path='MenuBar/Problem'),
         Group(id='problem_actions2', path='MenuBar/Problem'),
         Group(id='problem_actions3', path='MenuBar/Problem'),
         Group(id='problem_actions4', path='MenuBar/Problem'),
