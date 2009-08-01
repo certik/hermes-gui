@@ -100,9 +100,7 @@ class ActionSet(WorkbenchActionSet):
     menus = [
         Menu(name='&Edit', path='MenuBar', after="File"),
         Menu(name='&View', path='MenuBar', after="Edit"),
-        Menu(name='&Problem', path='MenuBar', after="View",
-            groups=["problem_actions1", "problem_actions2",
-                "problem_actions3", "problem_actions4"]),
+        Menu(name='&Problem', path='MenuBar', after="View"),
             Menu(name='Add', path='MenuBar/Problem'),
     ]
 
