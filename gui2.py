@@ -20,10 +20,108 @@ class MainWindow(HasTraits):
     def __init__(self, *args, **kwargs):
         super(MainWindow, self).__init__(*args, **kwargs)
         self.my_action = Action(name="stuff")
+        exit_action = Action(
+                name='E&xit',
+                accelerator="CTRL+Q",
+                on_perform=self.close,
+                image=ImageResource("images/application-exit.png"),
+                tooltip="Exit the application"
+                )
+
+        new_action = Action(
+                name='&New...',
+                accelerator="CTRL+N",
+                on_perform=self.create_new,
+                image=ImageResource("images/document-new.png")
+                )
+        open_action = Action(
+                name='&Open...',
+                accelerator="CTRL+O",
+                image=ImageResource("images/document-open.png")
+                )
+        save_action = Action(
+                name='&Save',
+                accelerator="CTRL+S",
+                image=ImageResource("images/document-save.png")
+                )
+        zoom_actions = [
+            Action(name='Zoom best fit',
+                image=ImageResource("images/zoom-best-fit.png")),
+            Action(name='Zoom region',
+                image=ImageResource("images/zoom-region.png")),
+            Action(name='Zoom in',
+                accelerator="Ctrl++",
+                image=ImageResource("images/zoom-in.png")),
+            Action(name='Zoom out',
+                accelerator="Ctrl+-",
+                image=ImageResource("images/zoom-out.png")),
+            ]
+        problem_actions1 = [
+            Action(name='Operate on &nodes',
+                accelerator="F5",
+                image=ImageResource("images/scene-node.png")),
+            Action(name='Operate on &edges',
+                accelerator="F6",
+                image=ImageResource("images/scene-edge.png")),
+            Action(name='Operate on &labels',
+                accelerator="F7",
+                image=ImageResource("images/scene-label.png")),
+            Action(name='&Postprocessor',
+                accelerator="F8",
+                image=ImageResource("images/scene-postprocessor.png")),
+            ]
+        problem_actions2 = [
+            Action(name='Select region',
+                image=ImageResource("images/scene-select-region.png")),
+            Action(name='Transform',
+                image=ImageResource("images/scene-transform.png")),
+            ]
+        problem_actions3 = [
+            Action(name='Local Values',
+                image=ImageResource("images/mode-localpointvalue.png")),
+            Action(name='Surface Integrals',
+                image=ImageResource("images/mode-surfaceintegral.png")),
+            Action(name='Volume Integrals',
+                image=ImageResource("images/mode-volumeintegral.png")),
+            ]
+        problem_actions4 = [
+            Action(name='Mesh area',
+                image=ImageResource("images/scene-mesh.png")),
+            Action(name='Solve problem',
+                accelerator="Alt+S",
+                image=ImageResource("images/system-run.png")),
+            ]
+
+        self.tool_bar_managers = [
+            ToolBar(
+                Group(*problem_actions1),
+                Group(*problem_actions2),
+                Group(*problem_actions3),
+                Group(*problem_actions4),
+                name='Problem Tool Bar', show_tool_names=False
+            ),
+            ToolBar(
+                *zoom_actions,
+                name='Zoom Tool Bar', show_tool_names=False
+            ),
+            ToolBar(
+                new_action,
+                open_action,
+                save_action,
+                name='File Tool Bar', show_tool_names=False
+            ),
+
+        ]
 
     def get_view(self):
         return View(
-                toolbar = ToolBar(self.my_action))
+                toolbar = self.tool_bar_managers[0])
+
+    def close(self):
+        print "close myself"
+
+    def create_new(self):
+        pass
 
 
 if __name__ == '__main__':
