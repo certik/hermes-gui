@@ -37,7 +37,7 @@ exit_action = MAction(
         image=image_resource("application-exit.png"),
         tooltip="Exit the application"
         )
-zoom_actions = [
+zoom_actions1 = [
     MAction(name='Zoom best fit',
         image=image_resource("zoom-best-fit.png")),
     MAction(name='Zoom region',
@@ -49,6 +49,10 @@ zoom_actions = [
         accelerator="Ctrl+-",
         image=image_resource("zoom-out.png")),
     ]
+zoom_actions2 = [MAction(name="Fullscreen mode", accelerator="F11")]
+zoom_actions3 = [MAction(name="&Scene properties",
+                    image=image_resource("scene-properties.png"))]
+
 problem_actions1 = [
     MAction(name='Operate on &nodes',
         accelerator="F5",
@@ -101,11 +105,16 @@ class ActionSet(WorkbenchActionSet):
     ]
 
     groups = [
+
         Group(id='problem_actions1', path='MenuBar/Problem'),
         Group(id='problem_actions2', path='MenuBar/Problem'),
         Group(id='problem_actions3', path='MenuBar/Problem'),
         Group(id='problem_actions4', path='MenuBar/Problem'),
         Group(id='problem_actions5', path='MenuBar/Problem'),
+
+        #Group(id='zoom_actions1', path='MenuBar/Problem'),
+        #Group(id='zoom_actions2', path='MenuBar/View'),
+        #Group(id='zoom_actions3', path='MenuBar/View'),
     ]
 
     tool_bars = [
@@ -178,4 +187,14 @@ class ActionSet(WorkbenchActionSet):
 
         Action(path="MenuBar/Problem", group="problem_actions5",
             class_name="acme.core.action_set:problem_actions5[0]"),
+
+
+        #Action(path="MenuBar/View", group="zoom_actions1",
+        #    class_name="acme.core.action_set:zoom_actions1[0]"),
+        #Action(path="MenuBar/View", group="zoom_actions1",
+        #    class_name="acme.core.action_set:zoom_actions1[1]"),
+        #Action(path="MenuBar/View", group="zoom_actions1",
+        #    class_name="acme.core.action_set:zoom_actions1[2]"),
+        #Action(path="MenuBar/View", group="zoom_actions1",
+        #    class_name="acme.core.action_set:zoom_actions1[3]"),
     ]
