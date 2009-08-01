@@ -50,16 +50,6 @@ class AcmeWorkbenchPlugin(Plugin):
 
         return [FooPerspective, BarPerspective]
 
-    # Preferences pages.
-    preferences_pages = List(contributes_to=PREFERENCES_PAGES)
-
-    def _preferences_pages_default(self):
-        """ Trait initializer. """
-
-        from acme_preferences_page import AcmePreferencesPage
-        
-        return [AcmePreferencesPage]
-
     # Views.
     views = List(contributes_to=VIEWS)
 
