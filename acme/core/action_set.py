@@ -84,6 +84,10 @@ problem_actions4 = [
         accelerator="Alt+S",
         image=image_resource("system-run.png")),
     ]
+problem_actions5 = [
+    MAction(name="Problem properties",
+        image=image_resource("scene-properties.png")),
+    ]
 
 
 class ActionSet(WorkbenchActionSet):
@@ -124,13 +128,24 @@ class ActionSet(WorkbenchActionSet):
             class_name="acme.core.action_set:problem_actions1[2]"),
         Action(path="MenuBar/Problem",
             class_name="acme.core.action_set:problem_actions1[3]"),
-        #            MenuManager(
-        #        Group(*problem_actions1),
-        #        Group(Action(name="Add ->")),
-        #        Group(*problem_actions2),
-        #        Group(*problem_actions3),
-        #        Group(*problem_actions4),
-        #        Group(Action(name="Problem properties",
-        #            image=ImageResource("images/scene-properties.png"))),
-        #        name='&Problem'),
+
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions2[0]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions2[1]"),
+
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions3[0]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions3[1]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions3[2]"),
+
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions4[0]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions4[1]"),
+
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions5[0]"),
     ]
