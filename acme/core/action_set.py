@@ -100,7 +100,9 @@ class ActionSet(WorkbenchActionSet):
     menus = [
         Menu(name='&Edit', path='MenuBar', after="File"),
         Menu(name='&View', path='MenuBar', after="Edit"),
-        Menu(name='&Problem', path='MenuBar', after="View"),
+        Menu(name='&Problem', path='MenuBar', after="View",
+            groups=["problem_actions1", "problem_actions2",
+                "problem_actions3", "problem_actions4"]),
             Menu(name='Add', path='MenuBar/Problem'),
     ]
 
@@ -112,16 +114,17 @@ class ActionSet(WorkbenchActionSet):
         Group(id='problem_actions4', path='MenuBar/Problem'),
         Group(id='problem_actions5', path='MenuBar/Problem'),
 
-        Group(id='zoom_actions1', path='MenuBar/Problem'),
-        #Group(id='zoom_actions2', path='MenuBar/View'),
-        #Group(id='zoom_actions3', path='MenuBar/View'),
+        Group(id='zoom_actions1', path='MenuBar/View'),
+        Group(id='zoom_actions2', path='MenuBar/View'),
+        Group(id='zoom_actions3', path='MenuBar/View'),
     ]
 
     tool_bars = [
         ToolBar(name='Problem',
             groups=["problem_actions1", "problem_actions2",
                 "problem_actions3", "problem_actions4"]),
-        ToolBar(name='Zoom'),
+        ToolBar(name='Zoom',
+            groups=["zoom_actions1"]),
         ToolBar(name='File'),
     ]
 
@@ -189,12 +192,21 @@ class ActionSet(WorkbenchActionSet):
             class_name="acme.core.action_set:problem_actions5[0]"),
 
 
-        #Action(path="MenuBar/View", group="zoom_actions1",
-        #    class_name="acme.core.action_set:zoom_actions1[0]"),
-        #Action(path="MenuBar/View", group="zoom_actions1",
-        #    class_name="acme.core.action_set:zoom_actions1[1]"),
-        #Action(path="MenuBar/View", group="zoom_actions1",
-        #    class_name="acme.core.action_set:zoom_actions1[2]"),
-        #Action(path="MenuBar/View", group="zoom_actions1",
-        #    class_name="acme.core.action_set:zoom_actions1[3]"),
+        Action(path="MenuBar/View", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[0]"),
+        Action(path="MenuBar/View", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[1]"),
+        Action(path="MenuBar/View", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[2]"),
+        Action(path="MenuBar/View", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[3]"),
+
+        Action(path="ToolBar/Zoom", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[0]"),
+        Action(path="ToolBar/Zoom", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[1]"),
+        Action(path="ToolBar/Zoom", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[2]"),
+        Action(path="ToolBar/Zoom", group="zoom_actions1",
+            class_name="acme.core.action_set:zoom_actions1[3]"),
     ]
