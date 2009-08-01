@@ -117,7 +117,13 @@ class ActionSet(WorkbenchActionSet):
             class_name='enthought.envisage.ui.workbench.action.api:ExitAction'
         ),
         Action(path="MenuBar/Problem",
-            class_name="acme.core.action_set:exit_action"),
+            class_name="acme.core.action_set:problem_actions1[0]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions1[1]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions1[2]"),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:problem_actions1[3]"),
         #            MenuManager(
         #        Group(*problem_actions1),
         #        Group(Action(name="Add ->")),
