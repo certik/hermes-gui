@@ -26,10 +26,64 @@ open_action = MAction(
 save_action = MAction(
         name='&Save',
         accelerator="CTRL+S",
-        tooltip="Saves the problem1",
-        description="Saves the problem2",
+        description="Saves the problem",
         image=image_resource("document-save.png")
         )
+
+exit_action = MAction(
+        name='E&xit',
+        accelerator="CTRL+Q",
+        #on_perform=self.close,
+        image=image_resource("application-exit.png"),
+        tooltip="Exit the application"
+        )
+zoom_actions = [
+    MAction(name='Zoom best fit',
+        image=image_resource("zoom-best-fit.png")),
+    MAction(name='Zoom region',
+        image=image_resource("zoom-region.png")),
+    MAction(name='Zoom in',
+        accelerator="Ctrl++",
+        image=image_resource("zoom-in.png")),
+    MAction(name='Zoom out',
+        accelerator="Ctrl+-",
+        image=image_resource("zoom-out.png")),
+    ]
+problem_actions1 = [
+    MAction(name='Operate on &nodes',
+        accelerator="F5",
+        image=image_resource("scene-node.png")),
+    MAction(name='Operate on &edges',
+        accelerator="F6",
+        image=image_resource("scene-edge.png")),
+    MAction(name='Operate on &labels',
+        accelerator="F7",
+        image=image_resource("scene-label.png")),
+    MAction(name='&Postprocessor',
+        accelerator="F8",
+        image=image_resource("scene-postprocessor.png")),
+    ]
+problem_actions2 = [
+    MAction(name='Select region',
+        image=image_resource("scene-select-region.png")),
+    MAction(name='Transform',
+        image=image_resource("scene-transform.png")),
+    ]
+problem_actions3 = [
+    MAction(name='Local Values',
+        image=image_resource("mode-localpointvalue.png")),
+    MAction(name='Surface Integrals',
+        image=image_resource("mode-surfaceintegral.png")),
+    MAction(name='Volume Integrals',
+        image=image_resource("mode-volumeintegral.png")),
+    ]
+problem_actions4 = [
+    MAction(name='Mesh area',
+        image=image_resource("scene-mesh.png")),
+    MAction(name='Solve problem',
+        accelerator="Alt+S",
+        image=image_resource("system-run.png")),
+    ]
 
 
 class ActionSet(WorkbenchActionSet):
