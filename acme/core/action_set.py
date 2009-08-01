@@ -100,6 +100,15 @@ class ActionSet(WorkbenchActionSet):
             Menu(name='Add', path='MenuBar/Problem'),
     ]
 
+    groups = [
+        Group(id='problem_actions1', path='MenuBar/Problem'),
+        Group(id='problem_add', path='MenuBar/Problem'),
+        Group(id='problem_actions2', path='MenuBar/Problem'),
+        Group(id='problem_actions3', path='MenuBar/Problem'),
+        Group(id='problem_actions4', path='MenuBar/Problem'),
+        Group(id='problem_actions5', path='MenuBar/Problem'),
+    ]
+
     tool_bars = [
         ToolBar(name='Fred'),
         ToolBar(name='Wilma'),
@@ -120,32 +129,32 @@ class ActionSet(WorkbenchActionSet):
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:ExitAction'
         ),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions1",
             class_name="acme.core.action_set:problem_actions1[0]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions1",
             class_name="acme.core.action_set:problem_actions1[1]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions1",
             class_name="acme.core.action_set:problem_actions1[2]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions1",
             class_name="acme.core.action_set:problem_actions1[3]"),
 
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions2",
             class_name="acme.core.action_set:problem_actions2[0]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions2",
             class_name="acme.core.action_set:problem_actions2[1]"),
 
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions3",
             class_name="acme.core.action_set:problem_actions3[0]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions3",
             class_name="acme.core.action_set:problem_actions3[1]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions3",
             class_name="acme.core.action_set:problem_actions3[2]"),
 
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions4",
             class_name="acme.core.action_set:problem_actions4[0]"),
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions4",
             class_name="acme.core.action_set:problem_actions4[1]"),
 
-        Action(path="MenuBar/Problem",
+        Action(path="MenuBar/Problem", group="problem_actions5",
             class_name="acme.core.action_set:problem_actions5[0]"),
     ]
