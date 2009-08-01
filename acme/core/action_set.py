@@ -2,7 +2,8 @@ from enthought.envisage.ui.action.api import Action, Group, Menu, ToolBar
 from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 from enthought.pyface.action.api import Action as PAction
-from enthought.pyface.image_resource import ImageResource
+
+from utils import image_resource
 
 import new
 
@@ -15,19 +16,19 @@ def MAction(**kwargs):
 new_action = MAction(
         name='&New...',
         accelerator="CTRL+N",
-        image=ImageResource("../../images/document-new.png")
+        image=image_resource("document-new.png")
         )
 open_action = MAction(
         name='&Open...',
         accelerator="CTRL+O",
-        image=ImageResource("../../images/document-open.png")
+        image=image_resource("document-open.png")
         )
 save_action = MAction(
         name='&Save',
         accelerator="CTRL+S",
         tooltip="Saves the problem1",
         description="Saves the problem2",
-        image=ImageResource("../../images/document-save.png")
+        image=image_resource("document-save.png")
         )
 
 
