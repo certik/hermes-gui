@@ -46,9 +46,8 @@ class AcmeWorkbenchPlugin(Plugin):
         """ Trait initializer. """
 
         from acme.workbench.perspective.api import FooPerspective
-        from acme.workbench.perspective.api import BarPerspective
 
-        return [FooPerspective, BarPerspective]
+        return [FooPerspective]
 
     # Views.
     views = List(contributes_to=VIEWS)
