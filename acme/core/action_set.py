@@ -25,6 +25,8 @@ open_action = MAction(
 save_action = MAction(
         name='&Save',
         accelerator="CTRL+S",
+        tooltip="Saves the problem1",
+        description="Saves the problem2",
         image=ImageResource("../../images/document-save.png")
         )
 
@@ -76,6 +78,10 @@ class ActionSet(WorkbenchActionSet):
         Action(
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
+        ),
+        Action(
+            path='ToolBar',
+            class_name='acme.core.action_set:save_action'
         ),
 
         Action(
