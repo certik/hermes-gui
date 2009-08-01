@@ -4,6 +4,16 @@ from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 from enthought.pyface.action.api import Action as PAction
 from enthought.pyface.image_resource import ImageResource
 
+import new
+
+def MAction(_name, **kwargs):
+    action = new.classobj(_name, (PAction,), kwargs)
+
+NewAction2 = MAction("NewAction",
+        name='&New...',
+        accelerator="CTRL+N",
+        image=ImageResource("images/document-new.png"))
+
 class NewAction(PAction):
     name='&New...'
     accelerator="CTRL+N"
