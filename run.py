@@ -15,6 +15,7 @@ from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
 
 # Example plugins.
 from acme.workbench.acme_workbench_plugin import AcmeWorkbenchPlugin
+from acme.core.core_plugin import CorePlugin
 
 
 # Do whatever you want to do with log messages! Here we create a log file.
