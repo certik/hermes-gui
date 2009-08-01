@@ -1,17 +1,8 @@
-""" A test action set. """
-
-
-# Enthought library imports.
 from enthought.envisage.ui.action.api import Action, Group, Menu, ToolBar
 from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 
-class TestActionSet(WorkbenchActionSet):
-    """ An action test useful for testing. """
-
-    #### 'ActionSet' interface ################################################
-    
-    # The action set's globally unique identifier.
+class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
 
     menus = [
@@ -34,13 +25,13 @@ class TestActionSet(WorkbenchActionSet):
     groups = [
         Group(id='Fred', path='MenuBar/Test')
     ]
-        
+
     tool_bars = [
         ToolBar(name='Fred', groups=['AToolBarGroup']),
         ToolBar(name='Wilma'),
         ToolBar(name='Barney')
     ]
-        
+
     actions = [
         Action(
             path='MenuBar/Test', group='Fred',
@@ -49,14 +40,14 @@ class TestActionSet(WorkbenchActionSet):
 
         Action(
             path='MenuBar/Test', group='Fred',
-            class_name='acme.workbench.action.new_view_action:NewViewAction'
+            #class_name='acme.workbench.action.new_view_action:NewViewAction'
         ),
 
         Action(
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
         ),
-        
+
         Action(
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:ExitAction'
@@ -71,7 +62,7 @@ class TestActionSet(WorkbenchActionSet):
             path='ToolBar/Wilma',
             class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
         ),
-        
+
         Action(
             path='ToolBar/Barney',
             class_name='enthought.envisage.ui.workbench.action.api:ExitAction'
@@ -81,15 +72,15 @@ class TestActionSet(WorkbenchActionSet):
     #### 'WorkbenchActionSet' interface #######################################
 
     # The Ids of the perspectives that the action set is enabled in.
-    enabled_for_perspectives = ['Foo']
+    #enabled_for_perspectives = ['Foo']
 
     # The Ids of the perspectives that the action set is visible in.
-    visible_for_perspectives = ['Foo', 'Bar']
+    #visible_for_perspectives = ['Foo', 'Bar']
 
     # The Ids of the views that the action set is enabled for.
     #enabled_for_views = ['Red']
 
     # The Ids of the views that the action set is visible for.
     #visible_for_views = ['Red']
-    
+
 #### EOF ######################################################################

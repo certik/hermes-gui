@@ -2,7 +2,7 @@ from enthought.envisage.api import Plugin
 from enthought.traits.api import List
 
 
-class CorePlugin(Plugin):
+class HermesPlugin(Plugin):
     ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
     id = 'acme.core'
     name = 'Core Workbench'
