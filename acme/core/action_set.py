@@ -7,7 +7,7 @@ from enthought.pyface.image_resource import ImageResource
 class NewAction(PAction):
     name='&New...'
     accelerator="CTRL+N"
-    image=ImageResource("images/document-new.png")
+    image=ImageResource("../../images/document-new.png")
 
 
 class ActionSet(WorkbenchActionSet):
