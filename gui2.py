@@ -3,13 +3,9 @@
 from enthought.traits.api import (Int, HasTraits, Enum, CInt, String, Instance,
         Str)
 from enthought.traits.ui.api import (View, Item, HSplit, VSplit, TreeEditor,
-        TreeNode, ToolBar, Action, MenuBar, Menu)
-from enthought.traits.ui.menu import NoButtons
+        TreeNode, ToolBar, Action, MenuBar, Menu, Group, Separator)
 from enthought.pyface.image_resource import ImageResource
-from enthought.pyface.api import ApplicationWindow, GUI, PythonShell
 from enthought.traits.ui.api import CustomEditor
-from enthought.pyface.action.api import (MenuManager, MenuBarManager,
-        StatusBarManager, ToolBarManager, Group, Separator)
 
 from enthought.traits.api import HasTraits, Str, Regex, List, Instance
 from enthought.traits.ui.api import Item, View, TreeEditor, TreeNode
@@ -23,7 +19,7 @@ class MainWindow(HasTraits):
         exit_action = Action(
                 name='E&xit',
                 accelerator="CTRL+Q",
-                on_perform=self.close,
+                action="close",
                 image=ImageResource("images/application-exit.png"),
                 tooltip="Exit the application"
                 )
@@ -94,108 +90,33 @@ class MainWindow(HasTraits):
 
         self.menu_bar_manager = MenuBar(
             Menu(
-                Group(
-                    new_action,
-                    open_action,
-                    save_action,
-                    Action(name='Save &As...',
-                        accelerator="Ctrl+Shift+S",
-                        image=ImageResource("images/document-save-as.png")),
-                    Action(name='Close',
-                        accelerator="Ctrl+W"),
-                ),
-                Group(
+                    Group(
+                        new_action,
+                        open_action,
+                        save_action,
+                        Action(name='Save &As...',
+                            accelerator="Ctrl+Shift+S",
+                            image=ImageResource("images/document-save-as.png")),
+                        Action(name='Close',
+                            accelerator="Ctrl+W"),
+                    ),
+
                     Action(name='Import DXF...'),
                     Action(name='Export DXF...'),
-                ),
-                Group(
+
                     Action(name='Export image...'),
-                ),
-                Group(
+
                     Action(name='Recent files ->'),
                     exit_action,
-                ),
                 name='&File'),
-            Menu(
-                Group(
-                    Action(name='&Paste',
-                        accelerator="Ctrl+V",
-                        image=ImageResource("images/edit-paste.png"))
-                    ),
-                Group(
-                    Action(name='Options',
-                        image=ImageResource("images/options.png"))
-                    ),
-                name='&Edit'),
-            Menu(
-                Group(*zoom_actions),
-                Group(Action(name="Fullscreen mode", accelerator="F11")),
-                Group(Action(name="&Scene properties",
-                    image=ImageResource("images/scene-properties.png"))),
-                name='&View'),
-            Menu(
-                Group(*problem_actions1),
-                Group(Action(name="Add ->")),
-                Group(*problem_actions2),
-                Group(*problem_actions3),
-                Group(*problem_actions4),
-                Group(Action(name="Problem properties",
-                    image=ImageResource("images/scene-properties.png"))),
-                name='&Problem'),
-            Menu(
-                Group(
-                    Action(name='Chart',
-                        image=ImageResource("images/chart.png")),
-                    ),
-                Group(
-                    Action(name='Startup script',
-                        image=ImageResource("images/script-startup.png")),
-                    Action(name='Script editor',
-                        image=ImageResource("images/script.png"))
-                ),
-                name='Tools'),
-            Menu(
-                Group(
-                    Action(name='&Help',
-                        accelerator="F1",
-                        image=ImageResource("images/help-browser.png")),
-                    Action(name='Shortcuts'),
-                ),
-                Group(
-                    Action(name='&About Hermes-gui',
-                        image=ImageResource("images/about.png")),
-                    Action(name='About &Traits'),
-                ),
-                name='&Help'),
         )
-
-        self.tool_bar_managers = [
-            ToolBar(
-                Group(*problem_actions1),
-                Group(*problem_actions2),
-                Group(*problem_actions3),
-                Group(*problem_actions4),
-                name='Problem Tool Bar', show_tool_names=False
-            ),
-            ToolBar(
-                *zoom_actions,
-                name='Zoom Tool Bar', show_tool_names=False
-            ),
-            ToolBar(
-                new_action,
-                open_action,
-                save_action,
-                name='File Tool Bar', show_tool_names=False
-            ),
-
-        ]
 
     def get_view(self):
         return View(
                 menubar = self.menu_bar_manager,
-                toolbar = self.tool_bar_managers[0])
+                )
 
-    def close(self):
+    def close(uiinfo):
         print "close myself"
 
     def create_new(self):
