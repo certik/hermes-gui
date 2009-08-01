@@ -94,7 +94,6 @@ class ActionSet(WorkbenchActionSet):
         Menu(name='&View', path='MenuBar', after="Edit"),
         Menu(name='&Problem', path='MenuBar', after="View"),
             Menu(name='Add', path='MenuBar/Problem'),
-        Menu(name='Tools', path='MenuBar', after="Problem"),
     ]
 
     tool_bars = [
