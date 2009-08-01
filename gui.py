@@ -6,7 +6,7 @@ from enthought.traits.ui.api import (View, Item, HSplit, VSplit, TreeEditor,
         TreeNode)
 from enthought.traits.ui.menu import NoButtons
 from enthought.pyface.image_resource import ImageResource
-from enthought.pyface.api import ApplicationWindow, GUI
+from enthought.pyface.api import ApplicationWindow, GUI, PythonShell
 from enthought.traits.ui.api import CustomEditor
 from enthought.pyface.action.api import (Action, MenuManager, MenuBarManager,
         StatusBarManager, ToolBarManager, Group, Separator)
@@ -199,6 +199,10 @@ class MainWindow(ApplicationWindow):
 
     def create_new(self):
         self._container.configure_traits()
+
+    def _create_contents(self, parent):
+        self._python_shell = python_shell = PythonShell(parent)
+        return python_shell.control
 
 class NodeProblem(HasTraits):
     name = Str("NodeProblem")
