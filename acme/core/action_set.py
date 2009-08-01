@@ -128,13 +128,6 @@ class ActionSet(WorkbenchActionSet):
     ]
 
     actions = [
-        Action(path='ToolBar/File',
-            class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
-        ),
-        Action(path='ToolBar/File',
-            class_name='acme.core.action_set:save_action'),
-        Action(path='ToolBar/File',
-            class_name='enthought.envisage.ui.workbench.action.api:ExitAction'),
         Action(path='ToolBar/Problem', group="problem_actions1",
             class_name="acme.core.action_set:problem_actions1[0]"),
         Action(path='ToolBar/Problem', group="problem_actions1",
@@ -208,4 +201,18 @@ class ActionSet(WorkbenchActionSet):
             class_name="acme.core.action_set:zoom_actions1[2]"),
         Action(path="ToolBar/Zoom", group="zoom_actions1",
             class_name="acme.core.action_set:zoom_actions1[3]"),
+
+        Action(path="MenuBar/File",
+            class_name="acme.core.action_set:new_action"),
+        Action(path="MenuBar/File",
+            class_name="acme.core.action_set:open_action"),
+        Action(path="MenuBar/File",
+            class_name="acme.core.action_set:save_action"),
+
+        Action(path="ToolBar/File",
+            class_name="acme.core.action_set:new_action"),
+        Action(path="ToolBar/File",
+            class_name="acme.core.action_set:open_action"),
+        Action(path="ToolBar/File",
+            class_name="acme.core.action_set:save_action"),
     ]
