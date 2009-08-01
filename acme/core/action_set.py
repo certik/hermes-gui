@@ -90,46 +90,20 @@ class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
 
     menus = [
-        Menu(
-            name='&Test3', path='MenuBar', before='Help',
-        ),
-
-        Menu(
-            name='Bar', path='MenuBar/Test3',
-        ),
-    ]
-
-    groups = [
-        Group(id='Fred', path='MenuBar/Test3')
+        Menu(name='&Edit', path='MenuBar', after="File"),
+        Menu(name='&View', path='MenuBar', after="Edit"),
+        Menu(name='&Problem', path='MenuBar', after="View"),
+            Menu(name='Add', path='MenuBar/Problem'),
+        Menu(name='Tools', path='MenuBar', after="Problem"),
     ]
 
     tool_bars = [
-        ToolBar(name='Fred', groups=['AToolBarGroup']),
+        ToolBar(name='Fred'),
         ToolBar(name='Wilma'),
         ToolBar(name='Barney')
     ]
 
     actions = [
-        Action(
-            path='MenuBar/Test3', group='Fred',
-            class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
-        ),
-
-        Action(
-            path='MenuBar/Test3', group='Fred',
-            class_name='acme.core.action_set:new_action'
-        ),
-
-        Action(
-            path='MenuBar/Test3', group='Fred',
-            class_name='acme.core.action_set:open_action'
-        ),
-
-        Action(
-            path='MenuBar/Test3', group='Fred',
-            class_name='acme.core.action_set:save_action'
-        ),
-
         Action(
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:AboutAction'
@@ -143,4 +117,15 @@ class ActionSet(WorkbenchActionSet):
             path='ToolBar',
             class_name='enthought.envisage.ui.workbench.action.api:ExitAction'
         ),
+        Action(path="MenuBar/Problem",
+            class_name="acme.core.action_set:exit_action"),
+        #            MenuManager(
+        #        Group(*problem_actions1),
+        #        Group(Action(name="Add ->")),
+        #        Group(*problem_actions2),
+        #        Group(*problem_actions3),
+        #        Group(*problem_actions4),
+        #        Group(Action(name="Problem properties",
+        #            image=ImageResource("images/scene-properties.png"))),
+        #        name='&Problem'),
     ]
