@@ -6,11 +6,13 @@ from enthought.pyface.image_resource import ImageResource
 
 import new
 
-def MAction(_name, **kwargs):
-    action = new.classobj(_name, (PAction,), kwargs)
-    globals()[_name] = action
+count = 0
+def MAction(**kwargs):
+    global count
+    count += 1
+    return new.classobj("XXX%d" % count, (PAction,), kwargs)
 
-MAction("NewAction",
+NewAction = MAction(
         name='&New...',
         accelerator="CTRL+N",
         image=ImageResource("../../images/document-new.png"))
