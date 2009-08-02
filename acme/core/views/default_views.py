@@ -30,10 +30,9 @@ class ColorView(View):
     def _qt4_create_control(self, parent, color):
         """ Create a Qt4 version of the control. """
 
+        color="white"
         from PyQt4 import QtGui
-
         widget = QtGui.QWidget(parent)
-
         palette = widget.palette()
         palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
         widget.setPalette(palette)
