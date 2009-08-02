@@ -1,5 +1,5 @@
 from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import Instance, Tuple
+from enthought.traits.api import Instance, DelegatesTo
 from enthought.pyface.workbench.api import View
 
 from hermes2d import Solution
@@ -12,17 +12,11 @@ class SceneView(View):
     name = 'Scene'
     position = 'bottom'
     model = Instance(PlotModel)
-    mesh = Tuple
-    sln = Instance(Solution)
+    mesh = DelegatesTo("model")
+    sln = DelegatesTo("model")
 
     def _id_default(self):
         return self.name
-
-    def _mesh_changed(self):
-        self.model.mesh = self.mesh
-
-    def _sln_changed(self):
-        self.model.sln = self.sln
 
     def create_control(self, parent):
         method = getattr(self, '_%s_create_control' % ETSConfig.toolkit, None)
