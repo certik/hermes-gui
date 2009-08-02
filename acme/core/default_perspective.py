@@ -8,13 +8,14 @@ class DefaultPerspective(Perspective):
     name = 'Default'
 
     # Should the editor area be shown in this perspective?
-    show_editor_area = True
+    show_editor_area = False
 
     # The contents of the perspective.
     contents = [
         PerspectiveItem(id='Problem',  position='left'),
         PerspectiveItem(id='Local Values',  position='left'),
-        PerspectiveItem(id='Volume Integral',   position='with',
+        PerspectiveItem(id='Volume Integral',   position='bottom',
             relative_to='Local Values'),
-        PerspectiveItem(id='Surface Integral', position='top')
+        PerspectiveItem(id='Surface Integral', position='bottom',
+            relative_to="Volume Integral")
     ]
