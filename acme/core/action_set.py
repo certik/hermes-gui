@@ -4,7 +4,7 @@ from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 from enthought.pyface.action.api import Action as PAction
 
 from utils import image_resource
-from handle_hermes import read_mesh
+from handle_hermes import read_mesh, plot_mesh
 
 import new
 
@@ -26,7 +26,8 @@ class open_action(PAction):
     image=image_resource("document-open.png")
 
     def perform(self, event):
-        print read_mesh("data/lshape.mesh")
+        mesh = read_mesh("data/lshape.mesh")
+        plot_mesh(mesh)
 
 save_action = MAction(
         name='&Save',
