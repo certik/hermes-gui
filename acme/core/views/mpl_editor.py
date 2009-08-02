@@ -122,5 +122,9 @@ class PlotModel(HasTraits):
         def _draw():
             canvas.draw()
             self._draw_pending = False
-        wx.CallLater(50, _draw).Start()
         self._draw_pending = True
+        if self.toolkit == "wx":
+            wx.CallLater(50, _draw).Start()
+        elif self.toolkit == "qt4":
+            # this seems to be working fine:
+            _draw()

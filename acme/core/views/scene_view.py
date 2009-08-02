@@ -41,13 +41,3 @@ class SceneView(View):
         self.model = PlotModel(toolkit="qt4")
         ui = self.model.edit_traits(parent=parent, kind='subpanel')
         return ui.control
-        from PyQt4 import QtGui
-
-        widget = QtGui.QWidget(parent)
-
-        palette = widget.palette()
-        palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
-        widget.setPalette(palette)
-        widget.setAutoFillBackground(True)
-
-        return widget
