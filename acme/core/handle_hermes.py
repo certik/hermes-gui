@@ -14,3 +14,38 @@ def plot_mesh(mesh, axes=None):
     # remove the element markers
     elements = [x[:-1] for x in elements]
     return plot_mesh_mpl2(nodes, elements, axes=axes)
+
+def poisson_solver(mesh_tuple):
+    """
+    Poisson solver.
+
+    mesh_tuple ... a tuple of (nodes, elements, boundary, nurbs)
+    """
+    mesh = Mesh()
+    mesh.create(*mesh_tuple)
+    mesh.refine_element(0)
+    shapeset = H1Shapeset()
+    pss = PrecalcShapeset(shapeset)
+
+    # create an H1 space
+    space = H1Space(mesh, shapeset)
+    space.set_uniform_order(5)
+    space.assign_dofs()
+
+    # initialize the discrete problem
+    wf = WeakForm(1)
+    set_forms(wf)
+
+    solver = DummySolver()
+    sys = LinSystem(wf, solver)
+    sys.set_spaces(space)
+    sys.set_pss(pss)
+
+    # assemble the stiffness matrix and solve the system
+    sys.assemble()
+    A = sys.get_matrix()
+    b = sys.get_rhs()
+    from scipy.sparse.linalg import cg
+    x, res = cg(A, b)
+    sln = Solution()
+    sln.set_fe_solution(space, pss, x)

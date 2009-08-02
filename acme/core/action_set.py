@@ -4,7 +4,7 @@ from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 from enthought.pyface.action.api import Action as PAction
 
 from utils import image_resource
-from handle_hermes import read_mesh
+from handle_hermes import read_mesh, poisson_solver
 
 import new
 
@@ -20,7 +20,7 @@ new_action = MAction(
         image=image_resource("document-new.png")
         )
 
-class open_action(PAction):
+class OpenAction(PAction):
     name='&Open...'
     accelerator="CTRL+O"
     image=image_resource("document-open.png")
@@ -28,6 +28,16 @@ class open_action(PAction):
     def perform(self, event):
         mesh = read_mesh("data/lshape.mesh")
         event.window.get_view_by_id("Scene").mesh = mesh
+
+class SolveProblem(PAction):
+    name='Solve problem'
+    accelerator="Alt+S"
+    image=image_resource("system-run.png")
+
+    def perform(self, event):
+        mesh = event.window.get_view_by_id("Scene").mesh
+        poisson_solver(mesh)
+        print "done"
 
 save_action = MAction(
         name='&Save',
@@ -90,9 +100,7 @@ problem_actions3 = [
 problem_actions4 = [
     MAction(name='Mesh area',
         image=image_resource("scene-mesh.png")),
-    MAction(name='Solve problem',
-        accelerator="Alt+S",
-        image=image_resource("system-run.png")),
+    SolveProblem,
     ]
 problem_actions5 = [
     MAction(name="Problem properties",
@@ -211,14 +219,14 @@ class ActionSet(WorkbenchActionSet):
         Action(path="MenuBar/File",
             class_name="acme.core.action_set:new_action"),
         Action(path="MenuBar/File",
-            class_name="acme.core.action_set:open_action"),
+            class_name="acme.core.action_set:OpenAction"),
         Action(path="MenuBar/File",
             class_name="acme.core.action_set:save_action"),
 
         Action(path="ToolBar/File",
             class_name="acme.core.action_set:new_action"),
         Action(path="ToolBar/File",
-            class_name="acme.core.action_set:open_action"),
+            class_name="acme.core.action_set:OpenAction"),
         Action(path="ToolBar/File",
             class_name="acme.core.action_set:save_action"),
     ]
