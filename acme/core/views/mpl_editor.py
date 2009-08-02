@@ -41,8 +41,8 @@ def make_plot(parent, editor):
             #palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
             #widget.setPalette(palette)
             #widget.setAutoFillBackground(True)
-            #widget.setMinimumWidth(200)
-            #widget.setMinimumHeight(200)
+            widget.setMinimumWidth(200)
+            widget.setMinimumHeight(300)
 
             fig = editor.object.figure
             canvas = FigureCanvas(fig)
