@@ -1,17 +1,22 @@
 from enthought.etsconfig.api import ETSConfig
-from enthought.traits.api import Instance
+from enthought.traits.api import Instance, Tuple
 from enthought.pyface.workbench.api import View
 
 from mpl_editor import PlotModel
+from ..handle_hermes import plot_mesh
 
 class SceneView(View):
     category = 'Color'
     name = 'Scene'
     position = 'bottom'
     model = Instance(PlotModel)
+    mesh = Tuple
 
     def _id_default(self):
         return self.name
+
+    def _mesh_changed(self):
+        plot_mesh(self.mesh)
 
     def create_control(self, parent):
         method = getattr(self, '_%s_create_control' % ETSConfig.toolkit, None)
