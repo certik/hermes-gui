@@ -31,13 +31,16 @@ class SceneView(View):
     def _wx_create_control(self, parent, color):
         """ Create a wx version of the control. """
 
-        self.model = PlotModel()
+        self.model = PlotModel(toolkit="wx")
         ui = self.model.edit_traits(parent=parent, kind='subpanel')
         return ui.control
 
     def _qt4_create_control(self, parent, color):
         """ Create a Qt4 version of the control. """
 
+        self.model = PlotModel(toolkit="qt4")
+        ui = self.model.edit_traits(parent=parent, kind='subpanel')
+        return ui.control
         from PyQt4 import QtGui
 
         widget = QtGui.QWidget(parent)
