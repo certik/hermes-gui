@@ -52,6 +52,8 @@ class PlotModel(HasTraits):
         return self.figure.add_subplot(111)
 
     def _mesh_changed(self):
+        self.figure.delaxes(self.axes)
+        self.axes = self.figure.add_subplot(111)
         plot_mesh(self.mesh, axes=self.axes)
         self.redraw()
 
