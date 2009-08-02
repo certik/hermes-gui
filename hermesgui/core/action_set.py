@@ -2,6 +2,7 @@ from enthought.envisage.ui.action.api import Action, Group, Menu, ToolBar
 from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 from enthought.pyface.action.api import Action as PAction
+from enthought.pyface.api import FileDialog, OK
 
 from utils import image_resource, get_data_dir
 from handle_hermes import read_mesh, poisson_solver
@@ -26,10 +27,18 @@ class OpenAction(PAction):
     image=image_resource("document-open.png")
 
     def perform(self, event):
-        scene = event.window.get_view_by_id("Scene")
-        mesh = read_mesh(get_data_dir() + "/lshape.mesh")
-        scene.mesh = mesh
-        scene.mode = "mesh"
+        wildcard="All files (*.*)|*.*|Hermes2D mesh files (*.mesh)|*.mesh"
+        dialog = FileDialog(parent=None, title='Open supported data file',
+                            action='open', wildcard=wildcard,
+                            wildcard_index=1,
+                            default_directory=get_data_dir(),
+                            #default_filename="lshape.mesh",
+                            )
+        if dialog.open() == OK:
+            scene = event.window.get_view_by_id("Scene")
+            mesh = read_mesh(dialog.path)
+            scene.mesh = mesh
+            scene.mode = "mesh"
 
 class SolveProblem(PAction):
     name='Solve problem'
