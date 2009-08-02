@@ -38,9 +38,9 @@ def make_plot(parent, editor):
             palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
             widget.setPalette(palette)
             widget.setAutoFillBackground(True)
-            widget.setMinimumWidth(100)
-            widget.setMinimumHeight(100)
-            parent.addWidget(widget)
+            widget.setMinimumWidth(200)
+            widget.setMinimumHeight(200)
+            #parent.addWidget(widget)
             return widget
     except:
         import pdb
