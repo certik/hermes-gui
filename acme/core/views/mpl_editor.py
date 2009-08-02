@@ -1,6 +1,6 @@
 from enthought.traits.api import (HasTraits, Instance, Range, Array,
         on_trait_change, Property, cached_property, Bool, Tuple, Enum)
-from enthought.traits.ui.api import View, Item
+from enthought.traits.ui.api import View, Item, Group
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
 from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
@@ -40,9 +40,9 @@ class PlotModel(HasTraits):
     mesh = Tuple
     sln = Instance(Solution)
 
-    traits_view = View(
+    traits_view = View(Group(
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
-                resizable=True),
+                resizable=True)),
             Item('mode'),
             resizable=True
         )
