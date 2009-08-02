@@ -36,7 +36,7 @@ class HermesPlugin(Plugin):
         """ Trait initializer. """
 
         from views import (ProblemView, LocalValuesView, VolumeIntegralView,
-                SurfaceIntegralView, RedView, YellowView)
+                SurfaceIntegralView, RedView, YellowView, SceneView)
 
         return [ProblemView, LocalValuesView, VolumeIntegralView,
-                SurfaceIntegralView, RedView, YellowView]
+                SurfaceIntegralView, RedView, YellowView, SceneView]
