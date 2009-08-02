@@ -2,12 +2,9 @@ from enthought.etsconfig.api import ETSConfig
 from enthought.traits.api import (HasTraits, Instance, Range, Array,
         on_trait_change, Property, cached_property, Bool, Tuple, Enum)
 from enthought.traits.ui.api import View, Item, Group
-from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
-from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
 from enthought.traits.ui.api import CustomEditor
-import wx
 import numpy
 
 from hermes2d import Solution
@@ -15,8 +12,6 @@ from hermes2d.plot import plot_sln_mpl
 
 from ..handle_hermes import plot_mesh
 
-from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
 
 def make_plot(parent, editor):
     """
@@ -24,6 +19,9 @@ def make_plot(parent, editor):
     """
     try:
         if ETSConfig.toolkit == "wx":
+            from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
+            from matplotlib.backends.backend_wx import NavigationToolbar2Wx
+            import wx
             fig = editor.object.figure
             panel = wx.Panel(parent, -1)
             canvas = FigureCanvasWxAgg(panel, -1, fig)
@@ -35,6 +33,8 @@ def make_plot(parent, editor):
             panel.SetSizer(sizer)
             return panel
         elif ETSConfig.toolkit == "qt4":
+            from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+            from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
             from PyQt4 import QtGui
             widget = QtGui.QWidget()
             #color="green"
@@ -124,6 +124,7 @@ class PlotModel(HasTraits):
             self._draw_pending = False
         self._draw_pending = True
         if ETSConfig.toolkit == "wx":
+            import wx
             wx.CallLater(50, _draw).Start()
         elif ETSConfig.toolkit == "qt4":
             # this seems to be working fine:
