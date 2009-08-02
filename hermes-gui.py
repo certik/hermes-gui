@@ -1,4 +1,4 @@
-""" Run the AcmeLab example application. """
+#! /usr/bin/env python
 
 # delete the configuration, so that we can easily develop without any "caching"
 # effects:
