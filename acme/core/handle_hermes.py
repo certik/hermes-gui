@@ -49,3 +49,4 @@ def poisson_solver(mesh_tuple):
     x, res = cg(A, b)
     sln = Solution()
     sln.set_fe_solution(space, pss, x)
+    return sln

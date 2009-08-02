@@ -35,9 +35,10 @@ class SolveProblem(PAction):
     image=image_resource("system-run.png")
 
     def perform(self, event):
-        mesh = event.window.get_view_by_id("Scene").mesh
-        poisson_solver(mesh)
-        print "done"
+        scene = event.window.get_view_by_id("Scene")
+        if scene.mesh:
+            sln = poisson_solver(scene.mesh)
+            scene.sln = sln
 
 save_action = MAction(
         name='&Save',
