@@ -9,7 +9,7 @@ os.system("rm -rf ~/.enthought/acme.acmelab/")
 import logging
 
 # Example imports.
-from acme.acmelab.api import Acmelab
+from hermesgui.acmelab.api import Acmelab
 
 # Enthought plugins.
 from enthought.envisage.core_plugin import CorePlugin
@@ -17,7 +17,7 @@ from enthought.envisage.developer.developer_plugin import DeveloperPlugin
 from enthought.envisage.developer.ui.developer_ui_plugin import DeveloperUIPlugin
 from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
 
-from acme.core.core_plugin import HermesPlugin
+from hermesgui.core.core_plugin import HermesPlugin
 
 
 # Do whatever you want to do with log messages! Here we create a log file.

@@ -2,14 +2,14 @@ from distutils.core import setup
 setup(name='hermes-gui',
       version='0.1',
       packages=[
-          'acme',
-          'acme.acmelab',
-          'acme.core',
-          'acme.core.views',
+          'hermesgui',
+          'hermesgui.acmelab',
+          'hermesgui.core',
+          'hermesgui.core.views',
           ],
       package_data={
-          'acme.acmelab': ['images/*'],
-          'acme.core': ['images/*.png'],
+          'hermesgui.acmelab': ['images/*'],
+          'hermesgui.core': ['images/*.png'],
           },
       scripts = ['hermes-gui.py'],
       )
