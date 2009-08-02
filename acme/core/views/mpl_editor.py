@@ -36,13 +36,13 @@ def make_plot(parent, editor):
         elif editor.object.toolkit == "qt4":
             from PyQt4 import QtGui
             widget = QtGui.QWidget()
-            color="green"
-            palette = widget.palette()
-            palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
-            widget.setPalette(palette)
-            widget.setAutoFillBackground(True)
-            widget.setMinimumWidth(200)
-            widget.setMinimumHeight(200)
+            #color="green"
+            #palette = widget.palette()
+            #palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
+            #widget.setPalette(palette)
+            #widget.setAutoFillBackground(True)
+            #widget.setMinimumWidth(200)
+            #widget.setMinimumHeight(200)
 
             fig = editor.object.figure
             canvas = FigureCanvas(fig)
@@ -52,8 +52,6 @@ def make_plot(parent, editor):
             vbox.addWidget(canvas)
             vbox.addWidget(toolbar)
             widget.setLayout(vbox)
-            #toolbar.Realize()
-            #parent.addWidget(widget)
             return widget
     except:
         import pdb
