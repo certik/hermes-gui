@@ -48,6 +48,10 @@ def make_plot(parent, editor):
             canvas = FigureCanvas(fig)
             canvas.setParent(widget)
             toolbar = NavigationToolbar(canvas, widget)
+            vbox = QtGui.QVBoxLayout()
+            vbox.addWidget(canvas)
+            vbox.addWidget(toolbar)
+            widget.setLayout(vbox)
             #toolbar.Realize()
             #parent.addWidget(widget)
             return widget
