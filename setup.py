@@ -7,5 +7,8 @@ setup(name='hermes-gui',
           'acme.core',
           'acme.core.views',
           ],
-      package_data={'acme.acmelab': ['images/*']}
+      package_data={
+          'acme.acmelab': ['images/*'],
+          'acme.core': ['images/*.png'],
+          }
       )
