@@ -11,4 +11,6 @@ def read_mesh(filename):
 
 def plot_mesh(mesh, axes=None):
     nodes, elements, boundary, nurbs = mesh
+    # remove the element markers
+    elements = [x[:-1] for x in elements]
     return plot_mesh_mpl2(nodes, elements, axes=axes)
