@@ -9,6 +9,9 @@ from enthought.traits.ui.api import CustomEditor
 import wx
 import numpy
 
+from hermes2d import Solution
+from hermes2d.plot import plot_sln_mpl
+
 from ..handle_hermes import plot_mesh
 
 def make_plot(parent, editor):
@@ -34,6 +37,7 @@ class PlotModel(HasTraits):
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
     mesh = Tuple
+    sln = Instance(Solution)
 
     traits_view = View(
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
@@ -49,6 +53,10 @@ class PlotModel(HasTraits):
 
     def _mesh_changed(self):
         plot_mesh(self.mesh, axes=self.axes)
+        self.redraw()
+
+    def _sln_changed(self):
+        plot_sln_mpl(self.sln, axes=self.axes)
         self.redraw()
 
     def redraw(self):
