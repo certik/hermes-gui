@@ -24,7 +24,7 @@ from acme.core.core_plugin import HermesPlugin
 logger = logging.getLogger()
 #logger.addHandler(logging.StreamHandler(file('acmelab.log', 'w')))
 logger.addHandler(logging.StreamHandler())
-logger.setLevel(logging.DEBUG)
+#logger.setLevel(logging.DEBUG)
 
 
 def main():
