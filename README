@@ -1,0 +1,29 @@
+Hermes GUI
+----------
+
+This is a Python based GUI for Hermes, currently only Hermes2D.
+
+Features
+--------
+
+  * look and feel similar to Agros2D (http://hpfem.org/agros2d/)
+  * written and scriptable from Python (easy to maintain, easy to call any
+    solvers/external programs)
+  * works both with wxWidgets (GTK) and QT4
+  * written using Python Traits, thus no toolkit dependent code is used, it's
+    very easy to reuse any other traits editors and quickly create new
+    interfaces
+  * plugins based architecture, very easy to create new functionality as a
+    plugin
+  * BSD licensed
+
+Installation
+------------
+
+As usual:
+
+$ python setup.py install
+
+or if you want some specific prefix, use:
+
+$ python setup.py install --home=/some/path
