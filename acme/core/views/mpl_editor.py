@@ -5,7 +5,6 @@ from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
 from matplotlib.backends.backend_wx import NavigationToolbar2Wx
 from matplotlib.figure import Figure
 from matplotlib.axes import Axes
-from matplotlib.lines import Line2D
 from enthought.traits.ui.api import CustomEditor
 import wx
 import numpy
@@ -32,21 +31,13 @@ class PlotModel(HasTraits):
 
     figure = Instance(Figure)
     axes = Instance(Axes)
-    line = Instance(Line2D)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
     mesh = Tuple
-    #a variable paremeter
-    scale = Range(0.1,10.0)
-    #an independent variable
-    x = Array(value=numpy.linspace(-5,5,512))
-    #a dependent variable
-    y = Property(Array, depends_on=['scale','x'])
 
     traits_view = View(
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
                 resizable=True),
-            Item('scale'),
             resizable=True
         )
 
@@ -56,20 +47,9 @@ class PlotModel(HasTraits):
     def _axes_default(self):
         return self.figure.add_subplot(111)
 
-    def _line_default(self):
-        return self.axes.plot(self.x, self.y)[0]
-
     def _mesh_changed(self):
         print self.mesh
-
-    @cached_property
-    def _get_y(self):
-        return numpy.sin(self.scale * self.x)
-
-    @on_trait_change("x, y")
-    def update_line(self, obj, name, val):
-        attr = {'x': "set_xdata", 'y': "set_ydata"}[name]
-        getattr(self.line, attr)(val)
+        self.axes.plot([1, 2, 4, 1])
         self.redraw()
 
     def redraw(self):
@@ -83,7 +63,3 @@ class PlotModel(HasTraits):
             self._draw_pending = False
         wx.CallLater(50, _draw).Start()
         self._draw_pending = True
-
-if __name__=="__main__":
-    model = PlotModel(scale=2.0)
-    model.configure_traits()
