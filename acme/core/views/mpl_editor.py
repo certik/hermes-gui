@@ -1,6 +1,5 @@
-from enthought.traits.api import HasTraits, Instance, Range,\
-                           Array, on_trait_change, Property,\
-                           cached_property, Bool
+from enthought.traits.api import (HasTraits, Instance, Range, Array,
+        on_trait_change, Property, cached_property, Bool, Tuple)
 from enthought.traits.ui.api import View, Item
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
 from matplotlib.backends.backend_wx import NavigationToolbar2Wx
@@ -10,6 +9,8 @@ from matplotlib.lines import Line2D
 from enthought.traits.ui.api import CustomEditor
 import wx
 import numpy
+
+from ..handle_hermes import plot_mesh
 
 def make_plot(parent, editor):
     """
@@ -34,6 +35,7 @@ class PlotModel(HasTraits):
     line = Instance(Line2D)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
+    mesh = Tuple
     #a variable paremeter
     scale = Range(0.1,10.0)
     #an independent variable
@@ -56,6 +58,9 @@ class PlotModel(HasTraits):
 
     def _line_default(self):
         return self.axes.plot(self.x, self.y)[0]
+
+    def _mesh_changed(self):
+        print self.mesh
 
     @cached_property
     def _get_y(self):

@@ -3,7 +3,6 @@ from enthought.traits.api import Instance, Tuple
 from enthought.pyface.workbench.api import View
 
 from mpl_editor import PlotModel
-from ..handle_hermes import plot_mesh
 
 class SceneView(View):
     category = 'Color'
@@ -16,7 +15,7 @@ class SceneView(View):
         return self.name
 
     def _mesh_changed(self):
-        plot_mesh(self.mesh)
+        self.model.mesh = self.mesh
 
     def create_control(self, parent):
         method = getattr(self, '_%s_create_control' % ETSConfig.toolkit, None)
@@ -30,7 +29,7 @@ class SceneView(View):
     def _wx_create_control(self, parent, color):
         """ Create a wx version of the control. """
 
-        self.model = PlotModel(scale=3.0)
+        self.model = PlotModel()
         ui = self.model.edit_traits(parent=parent, kind='subpanel')
         return ui.control
 
