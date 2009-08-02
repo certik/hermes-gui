@@ -36,7 +36,8 @@ class Acmelab(WorkbenchApplication):
 
         about_dialog = AboutDialog(
             parent = self.workbench.active_window.control,
-            image  = ImageResource('about')
+            image  = ImageResource('about'),
+            additions = ["Copyright &copy; 2009 hp-FEM group at UNR"],
         )
 
         return about_dialog
