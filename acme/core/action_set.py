@@ -26,8 +26,10 @@ class OpenAction(PAction):
     image=image_resource("document-open.png")
 
     def perform(self, event):
+        scene = event.window.get_view_by_id("Scene")
         mesh = read_mesh("data/lshape.mesh")
-        event.window.get_view_by_id("Scene").mesh = mesh
+        scene.mesh = mesh
+        scene.mode = "mesh"
 
 class SolveProblem(PAction):
     name='Solve problem'
