@@ -42,7 +42,8 @@ class PlotModel(HasTraits):
     y = Property(Array, depends_on=['scale','x'])
 
     traits_view = View(
-            Item('figure', editor=CustomEditor(make_plot), resizable=True),
+            Item('figure', editor=CustomEditor(make_plot), show_label=False,
+                resizable=True),
             Item('scale'),
             resizable=True
         )
