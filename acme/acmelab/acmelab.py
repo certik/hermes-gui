@@ -25,7 +25,7 @@ class Acmelab(WorkbenchApplication):
     icon = ImageResource('acmelab.ico')
     
     # The name of the application (also used on window title bars etc).
-    name = 'Acme Lab'
+    name = 'Hermes2D GUI'
     
     ###########################################################################
     # 'WorkbenchApplication' interface.
