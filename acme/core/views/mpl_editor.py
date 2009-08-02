@@ -45,7 +45,7 @@ class PlotModel(HasTraits):
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
                 resizable=True)),
             Item('mode'),
-            Item('mesh_nodes'),
+            Item('mesh_nodes', enabled_when="mode == 'mesh'"),
             resizable=True
         )
 
