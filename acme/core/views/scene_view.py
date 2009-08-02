@@ -1,4 +1,5 @@
 from enthought.etsconfig.api import ETSConfig
+from enthought.traits.api import Instance
 from enthought.pyface.workbench.api import View
 
 from mpl_editor import PlotModel
@@ -7,7 +8,7 @@ class SceneView(View):
     category = 'Color'
     name = 'Scene'
     position = 'bottom'
-    model = PlotModel
+    model = Instance(PlotModel)
 
     def _id_default(self):
         return self.name
@@ -24,12 +25,9 @@ class SceneView(View):
     def _wx_create_control(self, parent, color):
         """ Create a wx version of the control. """
 
-        import wx
-
-        panel = wx.Panel(parent, -1)
-        panel.SetBackgroundColour(color)
-
-        return panel
+        self.model = PlotModel(scale=3.0)
+        ui = self.model.edit_traits(parent=parent, kind='subpanel')
+        return ui.control
 
     def _qt4_create_control(self, parent, color):
         """ Create a Qt4 version of the control. """
