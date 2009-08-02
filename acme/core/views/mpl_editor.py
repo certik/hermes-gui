@@ -56,6 +56,8 @@ class PlotModel(HasTraits):
         self.redraw()
 
     def _sln_changed(self):
+        self.figure.delaxes(self.axes)
+        self.axes = self.figure.add_subplot(111)
         plot_sln_mpl(self.sln, axes=self.axes)
         self.redraw()
 
