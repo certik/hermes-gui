@@ -9,11 +9,11 @@ def read_mesh(filename):
     nodes, elements, boundary, nurbs = read_hermes_format(filename)
     return nodes, elements, boundary, nurbs
 
-def plot_mesh(mesh, axes=None):
+def plot_mesh(mesh, axes=None, plot_nodes=True):
     nodes, elements, boundary, nurbs = mesh
     # remove the element markers
     elements = [x[:-1] for x in elements]
-    return plot_mesh_mpl2(nodes, elements, axes=axes)
+    return plot_mesh_mpl2(nodes, elements, axes=axes, plot_nodes=plot_nodes)
 
 def poisson_solver(mesh_tuple):
     """

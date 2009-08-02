@@ -73,11 +73,7 @@ class PlotModel(HasTraits):
         self.axes = self.figure.add_subplot(111)
         if self.mode == "mesh":
             if self.mesh:
-                plot_mesh(self.mesh, axes=self.axes)
-            if self.mesh_nodes:
-                self.axes.plot([1, 3, 1])
-            else:
-                self.axes.plot([1, 1, 1])
+                plot_mesh(self.mesh, axes=self.axes, plot_nodes=self.mesh_nodes)
         elif self.mode == "solution":
             if self.sln:
                 plot_sln_mpl(self.sln, axes=self.axes)
