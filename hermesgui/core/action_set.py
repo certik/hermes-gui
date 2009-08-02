@@ -3,7 +3,7 @@ from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 from enthought.pyface.action.api import Action as PAction
 
-from utils import image_resource
+from utils import image_resource, get_data_dir
 from handle_hermes import read_mesh, poisson_solver
 
 import new
@@ -27,7 +27,7 @@ class OpenAction(PAction):
 
     def perform(self, event):
         scene = event.window.get_view_by_id("Scene")
-        mesh = read_mesh("data/lshape.mesh")
+        mesh = read_mesh(get_data_dir() + "/lshape.mesh")
         scene.mesh = mesh
         scene.mode = "mesh"
 
