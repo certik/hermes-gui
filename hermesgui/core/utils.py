@@ -17,6 +17,10 @@ def _find_data_path():
         "share", "hermesgui", "data")
     if os.path.exists(p):
         return p
+    p = os.path.join(core_path, "..", "..", "..", "..", "..",
+        "share", "hermesgui", "data")
+    if os.path.exists(p):
+        return p
     raise Exception("Can't find the data directory")
 
 core_path = resource_path()
