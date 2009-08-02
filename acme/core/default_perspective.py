@@ -12,7 +12,9 @@ class DefaultPerspective(Perspective):
 
     # The contents of the perspective.
     contents = [
-        PerspectiveItem(id='Blue',  position='left'),
-        PerspectiveItem(id='Red',   position='with', relative_to='Blue'),
-        PerspectiveItem(id='Green', position='top')
+        PerspectiveItem(id='Problem',  position='left'),
+        PerspectiveItem(id='Local Values',  position='left'),
+        PerspectiveItem(id='Volume Integral',   position='with',
+            relative_to='Local Values'),
+        PerspectiveItem(id='Surface Integral', position='top')
     ]

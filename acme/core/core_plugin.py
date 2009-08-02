@@ -35,6 +35,8 @@ class HermesPlugin(Plugin):
     def _views_default(self):
         """ Trait initializer. """
 
-        from views import BlackView, BlueView, GreenView, RedView, YellowView
+        from views import (ProblemView, LocalValuesView, VolumeIntegralView,
+                SurfaceIntegralView, RedView, YellowView)
 
-        return [BlackView, BlueView, GreenView, RedView, YellowView]
+        return [ProblemView, LocalValuesView, VolumeIntegralView,
+                SurfaceIntegralView, RedView, YellowView]

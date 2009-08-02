@@ -13,8 +13,6 @@ from enthought.envisage.developer.developer_plugin import DeveloperPlugin
 from enthought.envisage.developer.ui.developer_ui_plugin import DeveloperUIPlugin
 from enthought.envisage.ui.workbench.workbench_plugin import WorkbenchPlugin
 
-# Example plugins.
-from acme.workbench.acme_workbench_plugin import AcmeWorkbenchPlugin
 from acme.core.core_plugin import HermesPlugin
 
 

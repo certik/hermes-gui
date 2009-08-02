@@ -42,17 +42,20 @@ class ColorView(View):
         return widget
 
 
-
-class BlackView(ColorView):
-    name = 'Black'
+class ProblemView(ColorView):
+    name = 'Problem'
     position = 'bottom'
 
-class BlueView(ColorView):
-    name = 'Blue'
+class LocalValuesView(ColorView):
+    name = 'Local Values'
     position = 'bottom'
 
-class GreenView(ColorView):
-    name = 'Green'
+class VolumeIntegralView(ColorView):
+    name = 'Volume Integral'
+    position = 'bottom'
+
+class SurfaceIntegralView(ColorView):
+    name = 'Surface Integral'
     position = 'bottom'
 
 class RedView(ColorView):
