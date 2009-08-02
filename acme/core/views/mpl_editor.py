@@ -19,16 +19,18 @@ def make_plot(parent, editor):
     Builds the Canvas window for displaying the mpl-figure
     """
     from PyQt4 import QtGui
-    widget = QtGui.QWidget(parent)
-    return widget
-    panel = wx.Panel(parent, -1)
-    return panel
+    #l = QtGui.QLabel("sldkfja;slfdj")
+    #parent.addWidget(l)
 
-    widget = QtGui.QWidget(parent)
+    widget = QtGui.QWidget()
+    color="green"
     palette = widget.palette()
     palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
     widget.setPalette(palette)
     widget.setAutoFillBackground(True)
+    widget.setMinimumWidth(100)
+    widget.setMinimumHeight(100)
+    parent.addWidget(widget)
     return widget
 
     fig = editor.object.figure
@@ -55,10 +57,10 @@ class PlotModel(HasTraits):
     sln = Instance(Solution)
 
     traits_view = View(
-            #Group(
-            #    Item('figure', editor=CustomEditor(make_plot),
-            #        show_label=False, resizable=True)
-            #    ),
+            Group(
+                Item('figure', editor=CustomEditor(make_plot),
+                    show_label=False, resizable=True)
+                ),
             Item('mode',
                 enabled_when="sln is not None"),
             Item('mesh_nodes',
