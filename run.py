@@ -42,6 +42,8 @@ def main():
         ]
     )
 
+    acmelab.workbench.prompt_on_exit = False
+
     # Run it! This starts the application, starts the GUI event loop, and when
     # that terminates, stops the application.
     acmelab.run()
