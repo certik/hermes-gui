@@ -1,5 +1,5 @@
 from enthought.traits.api import (HasTraits, Instance, Range, Array,
-        on_trait_change, Property, cached_property, Bool, Tuple)
+        on_trait_change, Property, cached_property, Bool, Tuple, Enum)
 from enthought.traits.ui.api import View, Item
 from matplotlib.backends.backend_wxagg import FigureCanvasWxAgg
 from matplotlib.backends.backend_wx import NavigationToolbar2Wx
@@ -36,12 +36,14 @@ class PlotModel(HasTraits):
     axes = Instance(Axes)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
+    mode = Enum("mesh", "solution", label="Mode")
     mesh = Tuple
     sln = Instance(Solution)
 
     traits_view = View(
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
                 resizable=True),
+            Item('mode'),
             resizable=True
         )
 
@@ -52,16 +54,25 @@ class PlotModel(HasTraits):
         return self.figure.add_subplot(111)
 
     def _mesh_changed(self):
-        self.figure.delaxes(self.axes)
-        self.axes = self.figure.add_subplot(111)
-        plot_mesh(self.mesh, axes=self.axes)
-        self.redraw()
+        if self.mesh:
+            self.figure.delaxes(self.axes)
+            self.axes = self.figure.add_subplot(111)
+            plot_mesh(self.mesh, axes=self.axes)
+            self.redraw()
 
     def _sln_changed(self):
-        self.figure.delaxes(self.axes)
-        self.axes = self.figure.add_subplot(111)
-        plot_sln_mpl(self.sln, axes=self.axes)
-        self.redraw()
+        if self.sln:
+            self.figure.delaxes(self.axes)
+            self.axes = self.figure.add_subplot(111)
+            plot_sln_mpl(self.sln, axes=self.axes)
+            self.redraw()
+
+    def _mode_changed(self):
+        if self.mode == "mesh":
+            self._mesh_changed()
+        elif self.mode == "solution":
+            self._sln_changed()
+
 
     def redraw(self):
         if self._draw_pending:
