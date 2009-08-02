@@ -46,7 +46,8 @@ class PlotModel(HasTraits):
                 resizable=True)),
             Item('mode',
                 enabled_when="sln is not None"),
-            Item('mesh_nodes', enabled_when="mode == 'mesh'"),
+            Item('mesh_nodes',
+                enabled_when="(mesh is not ()) and (mode == 'mesh')"),
             resizable=True
         )
 
