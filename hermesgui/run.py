@@ -3,6 +3,19 @@
 import os
 os.system("rm -rf ~/.enthought/acme.acmelab/")
 
+import sys
+from enthought.etsconfig.api import ETSConfig
+if (len(sys.argv) > 1) and (sys.argv[1] == "--qt" or sys.argv[1] == "--qt4"):
+    ETSConfig.toolkit = "qt4"
+elif (len(sys.argv) > 1) and (sys.argv[1] == "--wx"):
+    ETSConfig.toolkit = "wx"
+else:
+    try:
+        import PyQt4
+        ETSConfig.toolkit = "qt4"
+    except ImportError:
+        pass
+
 # Standard library imports.
 import logging
 
