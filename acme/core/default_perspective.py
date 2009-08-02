@@ -1,11 +1,11 @@
 from enthought.pyface.workbench.api import Perspective, PerspectiveItem
 
 
-class FooPerspective(Perspective):
+class DefaultPerspective(Perspective):
     """ An example perspective. """
 
     # The perspective's name.
-    name = 'Foo'
+    name = 'Default'
 
     # Should the editor area be shown in this perspective?
     show_editor_area = True

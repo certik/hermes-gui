@@ -26,9 +26,9 @@ class HermesPlugin(Plugin):
     def _perspectives_default(self):
         """ Trait initializer. """
 
-        from acme.workbench.perspective.api import FooPerspective
+        from default_perspective import DefaultPerspective
 
-        return [FooPerspective]
+        return [DefaultPerspective]
 
     views = List(contributes_to=VIEWS)
 
