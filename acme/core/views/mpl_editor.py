@@ -18,31 +18,34 @@ def make_plot(parent, editor):
     """
     Builds the Canvas window for displaying the mpl-figure
     """
-    from PyQt4 import QtGui
-    #l = QtGui.QLabel("sldkfja;slfdj")
-    #parent.addWidget(l)
+    try:
+        if editor.object.toolkit == "wx":
+            fig = editor.object.figure
+            panel = wx.Panel(parent, -1)
+            canvas = FigureCanvasWxAgg(panel, -1, fig)
+            toolbar = NavigationToolbar2Wx(canvas)
+            toolbar.Realize()
+            sizer = wx.BoxSizer(wx.VERTICAL)
+            sizer.Add(canvas,1,wx.EXPAND|wx.ALL,1)
+            sizer.Add(toolbar,0,wx.EXPAND|wx.ALL,1)
+            panel.SetSizer(sizer)
+            return panel
+        elif editor.object.toolkit == "qt4":
+            from PyQt4 import QtGui
+            widget = QtGui.QWidget()
+            color="green"
+            palette = widget.palette()
+            palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
+            widget.setPalette(palette)
+            widget.setAutoFillBackground(True)
+            widget.setMinimumWidth(100)
+            widget.setMinimumHeight(100)
+            parent.addWidget(widget)
+            return widget
+    except:
+        import pdb
+        pdb.post_mortem()
 
-    widget = QtGui.QWidget()
-    color="green"
-    palette = widget.palette()
-    palette.setColor(QtGui.QPalette.Window, QtGui.QColor(color))
-    widget.setPalette(palette)
-    widget.setAutoFillBackground(True)
-    widget.setMinimumWidth(100)
-    widget.setMinimumHeight(100)
-    parent.addWidget(widget)
-    return widget
-
-    fig = editor.object.figure
-    panel = wx.Panel(parent, -1)
-    canvas = FigureCanvasWxAgg(panel, -1, fig)
-    toolbar = NavigationToolbar2Wx(canvas)
-    toolbar.Realize()
-    sizer = wx.BoxSizer(wx.VERTICAL)
-    sizer.Add(canvas,1,wx.EXPAND|wx.ALL,1)
-    sizer.Add(toolbar,0,wx.EXPAND|wx.ALL,1)
-    panel.SetSizer(sizer)
-    return panel
 
 class PlotModel(HasTraits):
     """A Model for displaying a matplotlib figure"""
@@ -51,6 +54,7 @@ class PlotModel(HasTraits):
     axes = Instance(Axes)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
+    toolkit = Enum("wx", "qt4")
     mode = Enum("mesh", "solution", label="Mode")
     mesh_nodes = Bool(True, label="Show nodes")
     mesh = Tuple
