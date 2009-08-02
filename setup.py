@@ -10,5 +10,6 @@ setup(name='hermes-gui',
       package_data={
           'acme.acmelab': ['images/*'],
           'acme.core': ['images/*.png'],
-          }
+          },
+      scripts = ['hermes-gui.py'],
       )
