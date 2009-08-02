@@ -44,7 +44,8 @@ class PlotModel(HasTraits):
     traits_view = View(Group(
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
                 resizable=True)),
-            Item('mode'),
+            Item('mode',
+                enabled_when="sln is not None"),
             Item('mesh_nodes', enabled_when="mode == 'mesh'"),
             resizable=True
         )
