@@ -1,5 +1,9 @@
 """ Run the AcmeLab example application. """
 
+# delete the configuration, so that we can easily develop without any "caching"
+# effects:
+import os
+os.system("rm -rf ~/.enthought/acme.acmelab/")
 
 # Standard library imports.
 import logging
