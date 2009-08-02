@@ -1,3 +1,4 @@
+from enthought.etsconfig.api import ETSConfig
 from enthought.traits.api import (HasTraits, Instance, Range, Array,
         on_trait_change, Property, cached_property, Bool, Tuple, Enum)
 from enthought.traits.ui.api import View, Item, Group
@@ -22,7 +23,7 @@ def make_plot(parent, editor):
     Builds the Canvas window for displaying the mpl-figure
     """
     try:
-        if editor.object.toolkit == "wx":
+        if ETSConfig.toolkit == "wx":
             fig = editor.object.figure
             panel = wx.Panel(parent, -1)
             canvas = FigureCanvasWxAgg(panel, -1, fig)
@@ -33,7 +34,7 @@ def make_plot(parent, editor):
             sizer.Add(toolbar,0,wx.EXPAND|wx.ALL,1)
             panel.SetSizer(sizer)
             return panel
-        elif editor.object.toolkit == "qt4":
+        elif ETSConfig.toolkit == "qt4":
             from PyQt4 import QtGui
             widget = QtGui.QWidget()
             #color="green"
@@ -65,7 +66,6 @@ class PlotModel(HasTraits):
     axes = Instance(Axes)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
-    toolkit = Enum("wx", "qt4")
     mode = Enum("mesh", "solution", label="Mode")
     mesh_nodes = Bool(True, label="Show nodes")
     mesh = Tuple
@@ -123,8 +123,8 @@ class PlotModel(HasTraits):
             canvas.draw()
             self._draw_pending = False
         self._draw_pending = True
-        if self.toolkit == "wx":
+        if ETSConfig.toolkit == "wx":
             wx.CallLater(50, _draw).Start()
-        elif self.toolkit == "qt4":
+        elif ETSConfig.toolkit == "qt4":
             # this seems to be working fine:
             _draw()
