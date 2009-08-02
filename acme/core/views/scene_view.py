@@ -14,6 +14,7 @@ class SceneView(View):
     model = Instance(PlotModel)
     mesh = DelegatesTo("model")
     sln = DelegatesTo("model")
+    mode = DelegatesTo("model")
 
     def _id_default(self):
         return self.name

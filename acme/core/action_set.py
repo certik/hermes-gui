@@ -39,6 +39,7 @@ class SolveProblem(PAction):
         if scene.mesh:
             sln = poisson_solver(scene.mesh)
             scene.sln = sln
+            scene.mode = "solution"
 
 save_action = MAction(
         name='&Save',
