@@ -37,6 +37,7 @@ class PlotModel(HasTraits):
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
 
     mode = Enum("mesh", "solution", label="Mode")
+    mesh_nodes = Bool(True, label="Show nodes")
     mesh = Tuple
     sln = Instance(Solution)
 
@@ -44,6 +45,7 @@ class PlotModel(HasTraits):
             Item('figure', editor=CustomEditor(make_plot), show_label=False,
                 resizable=True)),
             Item('mode'),
+            Item('mesh_nodes'),
             resizable=True
         )
 
@@ -54,24 +56,31 @@ class PlotModel(HasTraits):
         return self.figure.add_subplot(111)
 
     def _mesh_changed(self):
-        if self.mesh:
-            self.figure.delaxes(self.axes)
-            self.axes = self.figure.add_subplot(111)
-            plot_mesh(self.mesh, axes=self.axes)
-            self.redraw()
+        self.replot()
 
     def _sln_changed(self):
-        if self.sln:
-            self.figure.delaxes(self.axes)
-            self.axes = self.figure.add_subplot(111)
-            plot_sln_mpl(self.sln, axes=self.axes)
-            self.redraw()
+        self.replot()
 
     def _mode_changed(self):
+        self.replot()
+
+    def _mesh_nodes_changed(self):
+        self.replot()
+
+    def replot(self):
+        self.figure.delaxes(self.axes)
+        self.axes = self.figure.add_subplot(111)
         if self.mode == "mesh":
-            self._mesh_changed()
+            if self.mesh:
+                plot_mesh(self.mesh, axes=self.axes)
+            if self.mesh_nodes:
+                self.axes.plot([1, 3, 1])
+            else:
+                self.axes.plot([1, 1, 1])
         elif self.mode == "solution":
-            self._sln_changed()
+            if self.sln:
+                plot_sln_mpl(self.sln, axes=self.axes)
+        self.redraw()
 
 
     def redraw(self):
