@@ -14,6 +14,9 @@ from hermes2d.plot import plot_sln_mpl
 
 from ..handle_hermes import plot_mesh
 
+from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt4agg import NavigationToolbar2QTAgg as NavigationToolbar
+
 def make_plot(parent, editor):
     """
     Builds the Canvas window for displaying the mpl-figure
@@ -40,6 +43,12 @@ def make_plot(parent, editor):
             widget.setAutoFillBackground(True)
             widget.setMinimumWidth(200)
             widget.setMinimumHeight(200)
+
+            fig = editor.object.figure
+            canvas = FigureCanvas(fig)
+            canvas.setParent(widget)
+            toolbar = NavigationToolbar(canvas, widget)
+            #toolbar.Realize()
             #parent.addWidget(widget)
             return widget
     except:
