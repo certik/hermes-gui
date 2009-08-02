@@ -9,7 +9,6 @@ def read_mesh(filename):
     nodes, elements, boundary, nurbs = read_hermes_format(filename)
     return nodes, elements, boundary, nurbs
 
-def plot_mesh(mesh):
+def plot_mesh(mesh, axes=None):
     nodes, elements, boundary, nurbs = mesh
-    p = plot_mesh_mpl2(nodes, elements)
-    p.show()
+    return plot_mesh_mpl2(nodes, elements, axes=axes)
