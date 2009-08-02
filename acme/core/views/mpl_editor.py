@@ -29,7 +29,7 @@ def make_plot(parent, editor):
 class PlotModel(HasTraits):
     """A Model for displaying a matplotlib figure"""
 
-    figure = Instance(Figure, ())
+    figure = Instance(Figure)
     axes = Instance(Axes)
     line = Instance(Line2D)
     _draw_pending = Bool(False) #a flag to throttle the redraw rate
@@ -46,6 +46,9 @@ class PlotModel(HasTraits):
             Item('scale'),
             resizable=True
         )
+
+    def _figure_default(self):
+        return Figure(figsize=(1, 1))
 
     def _axes_default(self):
         return self.figure.add_subplot(111)
