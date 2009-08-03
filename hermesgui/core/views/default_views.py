@@ -1,9 +1,10 @@
 from enthought.etsconfig.api import ETSConfig
 from enthought.traits.api import Instance, Undefined, Str
-from enthought.traits.ui.api import View, Item
+from enthought.traits.ui.api import (View, Item, TreeNode, TreeEditor, Action,
+        Handler, Group)
 from enthought.pyface.workbench.api import View as PyfaceView
 
-from ..handle_agros import Problem, Geometry
+from ..handle_agros import Problem, Geometry, Node, Edge, Label
 
 
 class ColorView(PyfaceView):
@@ -44,6 +45,45 @@ class ColorView(PyfaceView):
 
         return widget
 
+no_view = View()
+tree_editor = TreeEditor(nodes=[
+    TreeNode(
+        node_for=[Geometry],
+        children="nodes",
+        label="=nodes",
+        view=no_view,
+        add=[Node],
+        ),
+    TreeNode(
+        node_for=[Geometry],
+        children="edges",
+        label="=edges",
+        view=no_view,
+        add=[Edge],
+        ),
+    TreeNode(
+        node_for=[Geometry],
+        children="labels",
+        label="=labels",
+        view=no_view,
+        add=[Label],
+        ),
+    TreeNode(
+        node_for=[Node],
+        label="=node",
+        view=no_view,
+        ),
+    TreeNode(
+        node_for=[Edge],
+        label="=edge",
+        view=no_view,
+        ),
+    TreeNode(
+        node_for=[Label],
+        label="=label",
+        view=no_view,
+        ),
+            ])
 
 class ProblemView(PyfaceView):
     name = 'Problem'
@@ -52,9 +92,15 @@ class ProblemView(PyfaceView):
     geometry = Instance(Geometry)
 
     view = View(
-            Item("problem"),
-            Item("geometry"),
-            )
+        Group(
+            Item("geometry", editor=tree_editor),
+            show_labels=False
+            ),
+        )
+
+
+    def _geometry_default(self):
+        return Geometry()
 
     def _id_default(self):
         return self.name
