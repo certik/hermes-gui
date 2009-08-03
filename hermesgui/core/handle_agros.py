@@ -1,5 +1,6 @@
 from enthought.traits.api import (HasTraits, Str, List, Int, Instance, BaseInt,
         BaseFloat)
+from enthought.traits.ui.api import View, Item
 from utils import get_data_dir
 from lxml import etree
 
@@ -44,6 +45,14 @@ class Problem(HasTraits):
     edges = List(ProblemEdge)
     labels = List(ProblemLabel)
 
+    view = View(
+            Item("name"),
+            Item("type"),
+            Item("problemtype"),
+            Item("edges"),
+            Item("labels"),
+            resizable=True)
+
 class Node(HasTraits):
     pass
 
@@ -58,6 +67,11 @@ class Geometry(HasTraits):
     edges = List(Edge)
     labels = List(Label)
 
+    view = View(
+            Item("nodes"),
+            Item("edges"),
+            Item("labels"),
+            resizable=True)
 
 
 def read_a2d(filename):
@@ -82,11 +96,13 @@ def read_a2d(filename):
     g.labels = [Label(**label.attrib) for label in \
             geometry.xpath("labels/label")]
 
-    p.print_traits()
+    p.configure_traits()
+    g.configure_traits()
 
 
 
-import glob
-for file in glob.glob(get_data_dir()+"/agros2d/*"):
-    print file
-    read_a2d(file)
+if __name__ == "__main__":
+    import glob
+    for file in glob.glob(get_data_dir()+"/agros2d/*.a2d"):
+        print file
+        read_a2d(file)
