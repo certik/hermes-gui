@@ -2,7 +2,7 @@ from enthought.traits.api import (HasTraits, Str, List, Int, Instance, BaseInt,
         BaseFloat)
 from enthought.traits.ui.api import View, Item
 from utils import get_data_dir
-from lxml import etree
+import xml.etree.cElementTree as etree
 
 class MyInt(BaseInt):
 
@@ -79,24 +79,17 @@ class Geometry(HasTraits):
 def read_a2d(filename):
     root = etree.fromstring(open(filename).read())
 
-    problem = root.xpath("/document/problems/problem")[0]
+    problem = root.find("problems").find("problem")
     p = Problem(**problem.attrib)
-    #p.name = problem.get("name")
-    #p.type = problem.get("problemtype")
-    #p.number_of_refinements = int(problem.get("numberofrefinements"))
-
-    #p.script_startup = problem.xpath("scriptstartup")[0]
-    p.edges = [ProblemEdge(**edge.attrib) for edge in \
-            problem.xpath("edges/edge")]
+    p.edges = [ProblemEdge(**edge.attrib) for edge in problem.find("edges")]
     p.labels = [ProblemLabel(**label.attrib) for label in \
-            problem.xpath("labels/label")]
+            problem.find("labels")]
 
-    geometry = root.xpath("/document/geometry")[0]
+    geometry = root.find("geometry")
     g = Geometry()
-    g.nodes = [Node(**node.attrib) for node in geometry.xpath("nodes/node")]
-    g.edges = [Edge(**edge.attrib) for edge in geometry.xpath("edges/edge")]
-    g.labels = [Label(**label.attrib) for label in \
-            geometry.xpath("labels/label")]
+    g.nodes = [Node(**node.attrib) for node in geometry.find("nodes")]
+    g.edges = [Edge(**edge.attrib) for edge in geometry.find("edges")]
+    g.labels = [Label(**label.attrib) for label in geometry.find("labels")]
 
     return p, g
 
