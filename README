@@ -13,6 +13,9 @@ Features
   * written using Python Traits, thus no toolkit dependent code is used, it's
     very easy to reuse any other traits editors and quickly create new
     interfaces
+  * no dependencies, besides Traits, so it's easy to install it, yet it
+    is still very easy to call any solvers, like scipy, petsc, umfpack, ...,
+    thanks to their python wrappers
   * plugins based architecture, very easy to create new functionality as a
     plugin
   * BSD licensed
