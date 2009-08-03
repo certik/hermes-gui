@@ -1,8 +1,12 @@
 from enthought.etsconfig.api import ETSConfig
-from enthought.pyface.workbench.api import View
+from enthought.traits.api import Instance, Undefined, Str
+from enthought.traits.ui.api import View, Item
+from enthought.pyface.workbench.api import View as PyfaceView
+
+from ..handle_agros import Problem, Geometry
 
 
-class ColorView(View):
+class ColorView(PyfaceView):
     category = 'Color'
 
     def _id_default(self):
@@ -41,9 +45,23 @@ class ColorView(View):
         return widget
 
 
-class ProblemView(ColorView):
+class ProblemView(PyfaceView):
     name = 'Problem'
     position = 'bottom'
+    problem = Instance(Problem)
+    geometry = Instance(Geometry)
+
+    view = View(
+            Item("problem"),
+            Item("geometry"),
+            )
+
+    def _id_default(self):
+        return self.name
+
+    def create_control(self, parent):
+        ui = self.edit_traits(parent=parent, kind='subpanel')
+        return ui.control
 
 class LocalValuesView(ColorView):
     name = 'Local Values'

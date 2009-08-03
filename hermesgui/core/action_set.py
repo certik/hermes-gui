@@ -46,8 +46,10 @@ class OpenAction(PAction):
         if dialog.open() == OK:
             ext = os.path.splitext(dialog.path)[1]
             if ext == ".a2d":
+                scene = event.window.get_view_by_id("Problem")
                 p, g = read_a2d(dialog.path)
-                print p, g
+                scene.problem = p
+                scene.geometry = g
             else:
                 scene = event.window.get_view_by_id("Scene")
                 mesh = read_mesh(dialog.path)
