@@ -14,5 +14,8 @@ setup(name='hermes-gui',
           'hermesgui.core': ['images/*.png'],
           },
       scripts = ['hermes-gui.py'],
-      data_files = [('share/hermesgui/data/', glob("data/*"))],
+      data_files = [
+          ('share/hermesgui/data/', glob("data/*.mesh")),
+          ('share/hermesgui/data/agros2d/', glob("data/agros2d/*")),
+          ],
       )
