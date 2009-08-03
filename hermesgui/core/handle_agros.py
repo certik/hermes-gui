@@ -96,8 +96,7 @@ def read_a2d(filename):
     g.labels = [Label(**label.attrib) for label in \
             geometry.xpath("labels/label")]
 
-    p.configure_traits()
-    g.configure_traits()
+    return p, g
 
 
 

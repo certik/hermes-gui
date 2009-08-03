@@ -1,3 +1,6 @@
+import os
+import new
+
 from enthought.envisage.ui.action.api import Action, Group, Menu, ToolBar
 from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
@@ -6,8 +9,8 @@ from enthought.pyface.api import FileDialog, OK
 
 from utils import image_resource, get_data_dir
 from handle_hermes import read_mesh, poisson_solver
+from handle_agros import read_a2d
 
-import new
 
 count = 0
 def MAction(**kwargs):
@@ -27,18 +30,29 @@ class OpenAction(PAction):
     image=image_resource("document-open.png")
 
     def perform(self, event):
-        wildcard="All files (*.*)|*.*|Hermes2D mesh files (*.mesh)|*.mesh"
+        wildcard="|".join([
+            "All files (*.*)", "*.*",
+            "Hermes2D mesh files (*.mesh)", "*.mesh",
+            "Agros2D problem files (*.a2d)", "*.a2d",
+            ])
         dialog = FileDialog(parent=None, title='Open supported data file',
                             action='open', wildcard=wildcard,
-                            wildcard_index=1,
+                            # use this to have Hermes2D by default:
+                            #wildcard_index=1,
+                            wildcard_index=0,
                             default_directory=get_data_dir(),
                             #default_filename="lshape.mesh",
                             )
         if dialog.open() == OK:
-            scene = event.window.get_view_by_id("Scene")
-            mesh = read_mesh(dialog.path)
-            scene.mesh = mesh
-            scene.mode = "mesh"
+            ext = os.path.splitext(dialog.path)[1]
+            if ext == ".a2d":
+                p, g = read_a2d(dialog.path)
+                print p, g
+            else:
+                scene = event.window.get_view_by_id("Scene")
+                mesh = read_mesh(dialog.path)
+                scene.mesh = mesh
+                scene.mode = "mesh"
 
 class SolveProblem(PAction):
     name='Solve problem'
