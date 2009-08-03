@@ -54,7 +54,9 @@ class Problem(HasTraits):
             resizable=True)
 
 class Node(HasTraits):
-    pass
+    id = MyInt
+    x = MyFloat
+    y = MyFloat
 
 class Edge(HasTraits):
     pass

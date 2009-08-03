@@ -45,6 +45,9 @@ class ColorView(PyfaceView):
 
         return widget
 
+def format_node(node, _):
+    return "[%g; %g]" % (node.x, node.y)
+
 no_view = View()
 tree_editor = TreeEditor(nodes=[
     TreeNode(
@@ -70,7 +73,8 @@ tree_editor = TreeEditor(nodes=[
         ),
     TreeNode(
         node_for=[Node],
-        label="=node",
+        #label="=node",
+        formatter=format_node,
         view=no_view,
         ),
     TreeNode(
