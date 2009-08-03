@@ -1,6 +1,17 @@
-from enthought.traits.api import HasTraits, Str, List, Int, Instance
+from enthought.traits.api import HasTraits, Str, List, Int, Instance, BaseInt
 from utils import get_data_dir
 from lxml import etree
+
+class MyInt(BaseInt):
+
+    def validate(self, object, name, value):
+        if isinstance(value, str):
+            try:
+                value = int(value)
+            except ValueError:
+                self.error(object, name, value)
+        return super(MyInt, self).validate(object, name, value)
+
 
 class ProblemEdge(HasTraits):
     pass
@@ -11,9 +22,13 @@ class ProblemLabel(HasTraits):
 class Problem(HasTraits):
     name = Str
     type = Str
-    number_of_refinements = Int
+    numberofrefinements = MyInt
     edges = List(ProblemEdge)
     labels = List(ProblemLabel)
+
+    def _numberofrefinements_validate():
+        pass
+
 
 class Node(HasTraits):
     pass
@@ -35,10 +50,10 @@ def read_a2d(filename):
     root = etree.fromstring(open(filename).read())
 
     problem = root.xpath("/document/problems/problem")[0]
-    p = Problem()
-    p.name = problem.get("name")
-    p.type = problem.get("problemtype")
-    p.number_of_refinements = int(problem.get("numberofrefinements"))
+    p = Problem(**problem.attrib)
+    #p.name = problem.get("name")
+    #p.type = problem.get("problemtype")
+    #p.number_of_refinements = int(problem.get("numberofrefinements"))
 
     p.script_startup = problem.xpath("scriptstartup")[0]
     p.edges = [ProblemEdge(**edge.attrib) for edge in \
@@ -52,7 +67,8 @@ def read_a2d(filename):
     g.edges = [Edge(**edge.attrib) for edge in geometry.xpath("edges/edge")]
     g.labels = [Label(**label.attrib) for label in \
             geometry.xpath("labels/label")]
-    g.configure_traits()
+
+    p.print_traits()
 
 
 
