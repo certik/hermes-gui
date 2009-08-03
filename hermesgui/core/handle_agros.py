@@ -1,4 +1,5 @@
-from enthought.traits.api import HasTraits, Str, List, Int, Instance, BaseInt
+from enthought.traits.api import (HasTraits, Str, List, Int, Instance, BaseInt,
+        BaseFloat)
 from utils import get_data_dir
 from lxml import etree
 
@@ -12,6 +13,16 @@ class MyInt(BaseInt):
                 self.error(object, name, value)
         return super(MyInt, self).validate(object, name, value)
 
+class MyFloat(BaseFloat):
+
+    def validate(self, object, name, value):
+        if isinstance(value, str):
+            try:
+                value = float(value)
+            except ValueError:
+                self.error(object, name, value)
+        return super(MyFloat, self).validate(object, name, value)
+
 
 class ProblemEdge(HasTraits):
     pass
@@ -22,13 +33,16 @@ class ProblemLabel(HasTraits):
 class Problem(HasTraits):
     name = Str
     type = Str
+    adaptivitysteps = MyInt
+    adaptivitytype = Str
+    adaptivitytolerance = MyFloat
+    frequency = MyInt
+    id = MyInt
+    polynomialorder = MyInt
+    problemtype = Str
     numberofrefinements = MyInt
     edges = List(ProblemEdge)
     labels = List(ProblemLabel)
-
-    def _numberofrefinements_validate():
-        pass
-
 
 class Node(HasTraits):
     pass
@@ -55,7 +69,7 @@ def read_a2d(filename):
     #p.type = problem.get("problemtype")
     #p.number_of_refinements = int(problem.get("numberofrefinements"))
 
-    p.script_startup = problem.xpath("scriptstartup")[0]
+    #p.script_startup = problem.xpath("scriptstartup")[0]
     p.edges = [ProblemEdge(**edge.attrib) for edge in \
             problem.xpath("edges/edge")]
     p.labels = [ProblemLabel(**label.attrib) for label in \
@@ -72,4 +86,7 @@ def read_a2d(filename):
 
 
 
-read_a2d(get_data_dir()+"/agros2d/electrostatic_planar_capacitor.a2d")
+import glob
+for file in glob.glob(get_data_dir()+"/agros2d/*"):
+    print file
+    read_a2d(file)
