@@ -31,7 +31,7 @@ class OpenAction(PAction):
 
     def perform(self, event):
         wildcard="|".join([
-            "All files (*.*)", "*.*",
+            "All files (*)", "*",
             "Hermes2D mesh files (*.mesh)", "*.mesh",
             "Agros2D problem files (*.a2d)", "*.a2d",
             ])
