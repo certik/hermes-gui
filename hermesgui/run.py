@@ -4,10 +4,25 @@ import os
 os.system("rm -rf ~/.enthought/acme.acmelab/")
 
 import sys
+from optparse import OptionParser
+
 from enthought.etsconfig.api import ETSConfig
-if (len(sys.argv) > 1) and (sys.argv[1] == "--qt" or sys.argv[1] == "--qt4"):
+
+usage = "usage: %prog [options]"
+description = """\
+Python based GUI for Hermes.\
+"""
+parser = OptionParser(usage=usage, description=description)
+parser.add_option("--qt", "--qt4", action="store_true", dest="qt4",
+        default=False, help="Run with the QT4 toolkit")
+parser.add_option("--wx", action="store_true", dest="wx",
+        default=False, help="Run with the wxWidgets (GTK) toolkit")
+options, args = parser.parse_args()
+if options.qt4 and options.wx:
+    parser.error("options --wx and --qt4 are mutually exclusive")
+if options.qt4:
     ETSConfig.toolkit = "qt4"
-elif (len(sys.argv) > 1) and (sys.argv[1] == "--wx"):
+elif options.wx:
     ETSConfig.toolkit = "wx"
 else:
     try:
