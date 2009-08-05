@@ -95,6 +95,12 @@ class ExitAction(PAction):
     def perform(self, event):
         self.window.application.exit()
 
+edit_actions1 = [
+    MAction(name='Paste',
+        accelerator="Ctrl+V",
+        image=image_resource("edit-paste.png")),
+    ]
+
 zoom_actions1 = [
     MAction(name='Zoom best fit',
         image=image_resource("zoom-best-fit.png")),
@@ -288,6 +294,9 @@ class ActionSet(WorkbenchActionSet):
             class_name="hermesgui.core.action_set:file_actions1[2]"),
         Action(path="MenuBar/File", group="ExitGroup",
             class_name="hermesgui.core.action_set:ExitAction"),
+
+        Action(path="MenuBar/Edit",
+            class_name="hermesgui.core.action_set:edit_actions1[0]"),
 
         Action(path="MenuBar/Tools", class_name=
             "enthought.envisage.ui.workbench.action.api:EditPreferencesAction"),
