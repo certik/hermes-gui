@@ -27,8 +27,10 @@ class HermesPlugin(Plugin):
         """ Trait initializer. """
 
         from action_set import ActionSet
+        from enthought.envisage.ui.workbench.default_action_set import \
+                DefaultActionSet
 
-        return [ActionSet]
+        return [DefaultActionSet, ActionSet]
 
     perspectives = List(contributes_to=PERSPECTIVES)
 

@@ -64,7 +64,7 @@ def main():
     acmelab = Acmelab(
         plugins=[
             CorePlugin(),
-            WorkbenchPlugin(),
+            WorkbenchPlugin(my_action_sets=[]),
             HermesPlugin(initial_filename=initial_filename),
         ]
     )
