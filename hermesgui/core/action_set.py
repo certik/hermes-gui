@@ -5,6 +5,7 @@ from enthought.envisage.ui.action.api import Action, Group, Menu, ToolBar
 from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 from enthought.pyface.action.api import Action as PAction
+from enthought.pyface.action.api import Group as PGroup
 from enthought.pyface.api import FileDialog, OK
 from enthought.pyface.workbench.action.api import ViewMenuManager
 
@@ -152,6 +153,9 @@ class MyViewMenuManager(ViewMenuManager):
 
     def _show_perspective_menu_default(self):
         return False
+
+    def _create_other_group(self, window):
+        return PGroup()
 
 class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
