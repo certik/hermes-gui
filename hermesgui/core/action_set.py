@@ -82,6 +82,8 @@ save_action = MAction(
         image=image_resource("document-save.png")
         )
 
+file_actions1 = [new_action, OpenAction, save_action]
+
 exit_action = MAction(
         name='E&xit',
         accelerator="CTRL+Q",
@@ -148,8 +150,7 @@ class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
 
     menus = [
-        Menu(name='&Edit', path='MenuBar', after="File"),
-        Menu(name='&View', path='MenuBar', after="Edit"),
+        Menu(name='&View', path='MenuBar', after="File"),
         Menu(name='&Problem', path='MenuBar', after="View"),
             Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
     ]
@@ -253,11 +254,11 @@ class ActionSet(WorkbenchActionSet):
             class_name="hermesgui.core.action_set:zoom_actions1[3]"),
 
         Action(path="MenuBar/File", group="OpenGroup",
-            class_name="hermesgui.core.action_set:new_action"),
+            class_name="hermesgui.core.action_set:file_actions1[0]"),
         Action(path="MenuBar/File", group="OpenGroup",
-            class_name="hermesgui.core.action_set:OpenAction"),
+            class_name="hermesgui.core.action_set:file_actions1[1]"),
         Action(path="MenuBar/File", group="OpenGroup",
-            class_name="hermesgui.core.action_set:save_action"),
+            class_name="hermesgui.core.action_set:file_actions1[2]"),
 
         Action(path="ToolBar/File",
             class_name="hermesgui.core.action_set:new_action"),
