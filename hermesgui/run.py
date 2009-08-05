@@ -65,10 +65,7 @@ def main():
         plugins=[
             CorePlugin(),
             WorkbenchPlugin(),
-            #AcmeWorkbenchPlugin(),
             HermesPlugin(initial_filename=initial_filename),
-            #DeveloperPlugin(),
-            #DeveloperUIPlugin()
         ]
     )
 
