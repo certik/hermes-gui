@@ -84,13 +84,15 @@ save_action = MAction(
 
 file_actions1 = [new_action, OpenAction, save_action]
 
-exit_action = MAction(
-        name='E&xit',
-        accelerator="CTRL+Q",
-        #on_perform=self.close,
-        image=image_resource("application-exit.png"),
-        tooltip="Exit the application"
-        )
+class ExitAction(PAction):
+    name='E&xit'
+    accelerator="CTRL+Q"
+    image=image_resource("application-exit.png")
+    tooltip="Exit the application"
+
+    def perform(self, event):
+        self.window.application.exit()
+
 zoom_actions1 = [
     MAction(name='Zoom best fit',
         image=image_resource("zoom-best-fit.png")),
@@ -150,9 +152,19 @@ class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
 
     menus = [
-        Menu(name='&View', path='MenuBar', after="File"),
+        Menu(name='&File', path='MenuBar',
+            groups=['OpenGroup', 'SaveGroup', 'ImportGroup', 'ExitGroup']),
+        # this has to be here after the File menu, for some reason, otherwise
+        # the File menu ends up as the last one:
+        Menu(
+            path='MenuBar',
+            class_name='enthought.pyface.workbench.action.api:ViewMenuManager'
+        ),
+        Menu(name='&Edit', path='MenuBar', after="File", before="View"),
         Menu(name='&Problem', path='MenuBar', after="View"),
             Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
+        Menu(name='&Tools', path='MenuBar', after="Problem"),
+        Menu(name='&Help', path='MenuBar', after="Tools"),
     ]
 
     groups = [
@@ -259,6 +271,13 @@ class ActionSet(WorkbenchActionSet):
             class_name="hermesgui.core.action_set:file_actions1[1]"),
         Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:file_actions1[2]"),
+        Action(path="MenuBar/File", group="ExitGroup",
+            class_name="hermesgui.core.action_set:ExitAction"),
+
+        Action(path="MenuBar/Tools", class_name=
+            "enthought.envisage.ui.workbench.action.api:EditPreferencesAction"),
+        Action(path="MenuBar/Help", class_name=
+                "enthought.envisage.ui.workbench.action.api:AboutAction"),
 
         Action(path="ToolBar/File",
             class_name="hermesgui.core.action_set:new_action"),

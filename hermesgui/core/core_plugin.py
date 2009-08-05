@@ -30,7 +30,7 @@ class HermesPlugin(Plugin):
         from enthought.envisage.ui.workbench.default_action_set import \
                 DefaultActionSet
 
-        return [DefaultActionSet, ActionSet]
+        return [ActionSet]
 
     perspectives = List(contributes_to=PERSPECTIVES)
 
