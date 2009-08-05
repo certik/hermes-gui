@@ -154,6 +154,12 @@ problem_actions5 = [
     MAction(name="Problem properties",
         image=image_resource("scene-properties.png")),
     ]
+tools_actions1 = [
+    MAction(name="S&tartup script",
+        image=image_resource("script-startup.png")),
+    MAction(name="&Script editor",
+        image=image_resource("script.png")),
+    ]
 
 class MyViewMenuManager(ViewMenuManager):
 
@@ -200,6 +206,9 @@ class ActionSet(WorkbenchActionSet):
         Group(id='zoom_actions1', path='MenuBar/View'),
         Group(id='zoom_actions2', path='MenuBar/View'),
         Group(id='zoom_actions3', path='MenuBar/View'),
+
+        Group(id='tools_actions1', path='MenuBar/Tools'),
+        Group(id='tools_actions2', path='MenuBar/Tools'),
     ]
 
     tool_bars = [
@@ -298,7 +307,12 @@ class ActionSet(WorkbenchActionSet):
         Action(path="MenuBar/Edit",
             class_name="hermesgui.core.action_set:edit_actions1[0]"),
 
-        Action(path="MenuBar/Tools", class_name=
+        Action(path="MenuBar/Tools", group="tools_actions1",
+            class_name="hermesgui.core.action_set:tools_actions1[0]"),
+        Action(path="MenuBar/Tools", group="tools_actions1",
+            class_name="hermesgui.core.action_set:tools_actions1[1]"),
+        Action(path="MenuBar/Tools", group="tools_actions2",
+                class_name=
             "enthought.envisage.ui.workbench.action.api:EditPreferencesAction"),
         Action(path="MenuBar/Help", class_name=
                 "enthought.envisage.ui.workbench.action.api:AboutAction"),
