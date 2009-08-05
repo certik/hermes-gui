@@ -80,7 +80,7 @@ class SolveProblem(PAction):
 save_action = MAction(
         name='&Save',
         accelerator="CTRL+S",
-        description="Saves the problem",
+        description="Saves the Problem",
         image=image_resource("document-save.png")
         )
 
@@ -90,6 +90,13 @@ file_actions1 = [new_action, OpenAction, save_action,
         image=image_resource("document-save-as.png")),
     MAction(name='&Close',
         accelerator="Ctrl+W"),
+    ]
+file_actions2 = [
+    MAction(name='Import DXF...'),
+    MAction(name='Export DXF...'),
+    ]
+file_actions3 = [
+    MAction(name='Export Image...'),
     ]
 
 class ExitAction(PAction):
@@ -186,7 +193,9 @@ class ActionSet(WorkbenchActionSet):
 
     menus = [
         Menu(name='&File', path='MenuBar',
-            groups=['OpenGroup', 'SaveGroup', 'ImportGroup', 'ExitGroup']),
+            groups=['OpenGroup', 'DXFGroup', 'ExportGroup', 'RecentGroup',
+                'ExitGroup']),
+            Menu(name='Recent files', path='MenuBar/File', group="RecentGroup"),
         Menu(name='&Edit', path='MenuBar', after="File"),
         Menu(name='&View', path='MenuBar', after="Edit"),
         Menu(name='&Problem', path='MenuBar', after="View"),
@@ -311,6 +320,14 @@ class ActionSet(WorkbenchActionSet):
             class_name="hermesgui.core.action_set:file_actions1[3]"),
         Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:file_actions1[4]"),
+
+        Action(path="MenuBar/File", group="DXFGroup",
+            class_name="hermesgui.core.action_set:file_actions2[0]"),
+        Action(path="MenuBar/File", group="DXFGroup",
+            class_name="hermesgui.core.action_set:file_actions2[1]"),
+        Action(path="MenuBar/File", group="ExportGroup",
+            class_name="hermesgui.core.action_set:file_actions3[0]"),
+
         Action(path="MenuBar/File", group="ExitGroup",
             class_name="hermesgui.core.action_set:ExitAction"),
 
