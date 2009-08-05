@@ -252,11 +252,11 @@ class ActionSet(WorkbenchActionSet):
         Action(path="ToolBar/Zoom", group="zoom_actions1",
             class_name="hermesgui.core.action_set:zoom_actions1[3]"),
 
-        Action(path="MenuBar/File",
+        Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:new_action"),
-        Action(path="MenuBar/File",
+        Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:OpenAction"),
-        Action(path="MenuBar/File",
+        Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:save_action"),
 
         Action(path="ToolBar/File",
