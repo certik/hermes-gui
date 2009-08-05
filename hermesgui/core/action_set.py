@@ -24,12 +24,8 @@ new_action = MAction(
         image=image_resource("document-new.png")
         )
 
-class OpenAction(PAction):
-    name='&Open...'
-    accelerator="CTRL+O"
-    image=image_resource("document-open.png")
-
-    def perform(self, event):
+def open_file(window, path=None):
+    if path==None:
         wildcard="|".join([
             "All files (*)", "*",
             "Hermes2D mesh files (*.mesh)", "*.mesh",
@@ -44,17 +40,28 @@ class OpenAction(PAction):
                             #default_filename="lshape.mesh",
                             )
         if dialog.open() == OK:
-            ext = os.path.splitext(dialog.path)[1]
-            if ext == ".a2d":
-                scene = event.window.get_view_by_id("Problem")
-                p, g = read_a2d(dialog.path)
-                scene.problem = p
-                scene.geometry = g
-            else:
-                scene = event.window.get_view_by_id("Scene")
-                mesh = read_mesh(dialog.path)
-                scene.mesh = mesh
-                scene.mode = "mesh"
+            path = dialog.path
+        else:
+            return
+    ext = os.path.splitext(path)[1]
+    if ext == ".a2d":
+        scene = window.get_view_by_id("Problem")
+        p, g = read_a2d(path)
+        scene.problem = p
+        scene.geometry = g
+    else:
+        scene = window.get_view_by_id("Scene")
+        mesh = read_mesh(path)
+        scene.mesh = mesh
+        scene.mode = "mesh"
+
+class OpenAction(PAction):
+    name='&Open...'
+    accelerator="CTRL+O"
+    image=image_resource("document-open.png")
+
+    def perform(self, event):
+        open_file(event.window)
 
 class SolveProblem(PAction):
     name='Solve problem'

@@ -30,6 +30,10 @@ else:
         ETSConfig.toolkit = "qt4"
     except ImportError:
         pass
+if len(args) == 1:
+    initial_filename = args[0]
+else:
+    initial_filename = None
 
 # Standard library imports.
 import logging
@@ -62,7 +66,7 @@ def main():
             CorePlugin(),
             WorkbenchPlugin(),
             #AcmeWorkbenchPlugin(),
-            HermesPlugin(),
+            HermesPlugin(initial_filename=initial_filename),
             #DeveloperPlugin(),
             #DeveloperUIPlugin()
         ]

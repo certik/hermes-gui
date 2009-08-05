@@ -1,6 +1,8 @@
 from enthought.envisage.api import Plugin
 from enthought.traits.api import List
+from enthought.pyface.timer.api import do_after
 
+from action_set import open_file
 
 class HermesPlugin(Plugin):
     ACTION_SETS       = 'enthought.envisage.ui.workbench.action_sets'
@@ -13,6 +15,13 @@ class HermesPlugin(Plugin):
     name = 'Core Workbench'
 
     action_sets = List(contributes_to=ACTION_SETS)
+
+    def start(self):
+        def open_file_later():
+            window = self.application.workbench.windows[0]
+            open_file(window, self.initial_filename)
+        if self.initial_filename:
+            do_after(1000, open_file_later)
 
     def _action_sets_default(self):
         """ Trait initializer. """
