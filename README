@@ -20,6 +20,13 @@ Features
     plugin
   * BSD licensed
 
+Other Goals
+-----------
+
+  * With the Traits technology, it should be possible to write web applications
+    later on (the core of hermes-gui stays, only the view editors and a backend
+    changes)
+
 Installation
 ------------
 
