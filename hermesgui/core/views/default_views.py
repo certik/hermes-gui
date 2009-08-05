@@ -5,6 +5,7 @@ from enthought.traits.ui.api import (View, Item, TreeNode, TreeEditor, Action,
 from enthought.pyface.workbench.api import View as PyfaceView
 
 from ..handle_agros import Problem, Geometry, Node, Edge, Label
+from ..utils import search_path
 
 
 class ColorView(PyfaceView):
@@ -83,6 +84,8 @@ tree_editor = TreeEditor(nodes=[
     TreeNode(
         node_for=[Node],
         formatter=format_node,
+        icon_item="zoom-in.png",
+        icon_path=search_path,
         view=no_view,
         on_dclick=configure,
         ),
