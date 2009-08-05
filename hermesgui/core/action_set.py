@@ -198,7 +198,9 @@ class ActionSet(WorkbenchActionSet):
             Menu(name='Recent files', path='MenuBar/File', group="RecentGroup"),
         Menu(name='&Edit', path='MenuBar', after="File"),
         Menu(name='&View', path='MenuBar', after="Edit"),
-        Menu(name='&Problem', path='MenuBar', after="View"),
+        Menu(name='&Problem', path='MenuBar', after="View",
+            groups=['problem_actions1', 'problem_add', 'problem_actions2',
+                'problem_actions3', 'problem_actions4', 'problem_actions5']),
             Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
         Menu(name='&Tools', path='MenuBar', after="Problem"),
         Menu(
@@ -210,13 +212,6 @@ class ActionSet(WorkbenchActionSet):
     ]
 
     groups = [
-
-        Group(id='problem_actions1', path='MenuBar/Problem'),
-        Group(id='problem_add', path='MenuBar/Problem'),
-        Group(id='problem_actions2', path='MenuBar/Problem'),
-        Group(id='problem_actions3', path='MenuBar/Problem'),
-        Group(id='problem_actions4', path='MenuBar/Problem'),
-        Group(id='problem_actions5', path='MenuBar/Problem'),
 
         Group(id='zoom_actions1', path='MenuBar/View'),
         Group(id='zoom_actions2', path='MenuBar/View'),
