@@ -115,14 +115,14 @@ edit_actions1 = [
     ]
 
 zoom_actions1 = [
-    MAction(name='Zoom best fit',
+    MAction(name='Zoom Best Fit',
         image=image_resource("zoom-best-fit.png")),
-    MAction(name='Zoom region',
+    MAction(name='Zoom Region',
         image=image_resource("zoom-region.png")),
-    MAction(name='Zoom in',
+    MAction(name='Zoom In',
         accelerator="Ctrl++",
         image=image_resource("zoom-in.png")),
-    MAction(name='Zoom out',
+    MAction(name='Zoom Out',
         accelerator="Ctrl+-",
         image=image_resource("zoom-out.png")),
     ]
@@ -131,13 +131,13 @@ zoom_actions3 = [MAction(name="&Scene properties",
                     image=image_resource("scene-properties.png"))]
 
 problem_actions1 = [
-    MAction(name='Operate on &nodes',
+    MAction(name='Operate on &Nodes',
         accelerator="F5",
         image=image_resource("scene-node.png")),
-    MAction(name='Operate on &edges',
+    MAction(name='Operate on &Edges',
         accelerator="F6",
         image=image_resource("scene-edge.png")),
-    MAction(name='Operate on &labels',
+    MAction(name='Operate on &Labels',
         accelerator="F7",
         image=image_resource("scene-label.png")),
     MAction(name='&Postprocessor',
@@ -145,7 +145,7 @@ problem_actions1 = [
         image=image_resource("scene-postprocessor.png")),
     ]
 problem_actions2 = [
-    MAction(name='Select region',
+    MAction(name='Select Region',
         image=image_resource("scene-select-region.png")),
     MAction(name='Transform',
         image=image_resource("scene-transform.png")),
@@ -159,18 +159,18 @@ problem_actions3 = [
         image=image_resource("mode-volumeintegral.png")),
     ]
 problem_actions4 = [
-    MAction(name='Mesh area',
+    MAction(name='Mesh Area',
         image=image_resource("scene-mesh.png")),
     SolveProblem,
     ]
 problem_actions5 = [
-    MAction(name="Problem properties",
+    MAction(name="Problem Properties",
         image=image_resource("scene-properties.png")),
     ]
 tools_actions1 = [
-    MAction(name="S&tartup script",
+    MAction(name="S&tartup Script",
         image=image_resource("script-startup.png")),
-    MAction(name="&Script editor",
+    MAction(name="&Script Editor",
         image=image_resource("script.png")),
     ]
 
