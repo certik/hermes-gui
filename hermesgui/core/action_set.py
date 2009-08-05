@@ -151,6 +151,12 @@ problem_actions5 = [
 
 class MyViewMenuManager(ViewMenuManager):
 
+    def _id_default(self):
+        return "Windows"
+
+    def _name_default(self):
+        return "&Windows"
+
     def _show_perspective_menu_default(self):
         return False
 
@@ -163,17 +169,17 @@ class ActionSet(WorkbenchActionSet):
     menus = [
         Menu(name='&File', path='MenuBar',
             groups=['OpenGroup', 'SaveGroup', 'ImportGroup', 'ExitGroup']),
-        # this has to be here after the File menu, for some reason, otherwise
-        # the File menu ends up as the last one:
-        Menu(
-            path='MenuBar',
-            class_name='hermesgui.core.action_set:MyViewMenuManager'
-        ),
-        Menu(name='&Edit', path='MenuBar', after="File", before="View"),
+        Menu(name='&Edit', path='MenuBar', after="File"),
+        Menu(name='&View', path='MenuBar', after="Edit"),
         Menu(name='&Problem', path='MenuBar', after="View"),
             Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
         Menu(name='&Tools', path='MenuBar', after="Problem"),
-        Menu(name='&Help', path='MenuBar', after="Tools"),
+        Menu(
+            path='MenuBar',
+            class_name='hermesgui.core.action_set:MyViewMenuManager',
+            after="Tools",
+        ),
+        Menu(name='&Help', path='MenuBar', after="Windows"),
     ]
 
     groups = [
