@@ -84,7 +84,7 @@ tree_editor = TreeEditor(nodes=[
     TreeNode(
         node_for=[Node],
         formatter=format_node,
-        icon_item="zoom-in.png",
+        icon_item="scene-node.png",
         icon_path=search_path,
         view=no_view,
         on_dclick=configure,
@@ -92,12 +92,16 @@ tree_editor = TreeEditor(nodes=[
     TreeNode(
         node_for=[Edge],
         formatter=format_edge,
+        icon_item="scene-edge.png",
+        icon_path=search_path,
         view=no_view,
         on_dclick=configure,
         ),
     TreeNode(
         node_for=[Label],
         formatter=format_label,
+        icon_item="scene-label.png",
+        icon_path=search_path,
         view=no_view,
         on_dclick=configure,
         ),
