@@ -6,6 +6,7 @@ from enthought.envisage.ui.workbench.api import WorkbenchActionSet
 
 from enthought.pyface.action.api import Action as PAction
 from enthought.pyface.api import FileDialog, OK
+from enthought.pyface.workbench.action.api import ViewMenuManager
 
 from utils import image_resource, get_data_dir
 from handle_hermes import read_mesh, poisson_solver
@@ -147,6 +148,10 @@ problem_actions5 = [
         image=image_resource("scene-properties.png")),
     ]
 
+class MyViewMenuManager(ViewMenuManager):
+
+    def _show_perspective_menu_default(self):
+        return False
 
 class ActionSet(WorkbenchActionSet):
     id = 'enthought.envisage.ui.workbench.test'
@@ -158,7 +163,7 @@ class ActionSet(WorkbenchActionSet):
         # the File menu ends up as the last one:
         Menu(
             path='MenuBar',
-            class_name='enthought.pyface.workbench.action.api:ViewMenuManager'
+            class_name='hermesgui.core.action_set:MyViewMenuManager'
         ),
         Menu(name='&Edit', path='MenuBar', after="File", before="View"),
         Menu(name='&Problem', path='MenuBar', after="View"),
