@@ -84,7 +84,13 @@ save_action = MAction(
         image=image_resource("document-save.png")
         )
 
-file_actions1 = [new_action, OpenAction, save_action]
+file_actions1 = [new_action, OpenAction, save_action,
+    MAction(name='Save &As...',
+        accelerator="Ctrl+Shift+S",
+        image=image_resource("document-save-as.png")),
+    MAction(name='&Close',
+        accelerator="Ctrl+W"),
+    ]
 
 class ExitAction(PAction):
     name='E&xit'
@@ -301,6 +307,10 @@ class ActionSet(WorkbenchActionSet):
             class_name="hermesgui.core.action_set:file_actions1[1]"),
         Action(path="MenuBar/File", group="OpenGroup",
             class_name="hermesgui.core.action_set:file_actions1[2]"),
+        Action(path="MenuBar/File", group="OpenGroup",
+            class_name="hermesgui.core.action_set:file_actions1[3]"),
+        Action(path="MenuBar/File", group="OpenGroup",
+            class_name="hermesgui.core.action_set:file_actions1[4]"),
         Action(path="MenuBar/File", group="ExitGroup",
             class_name="hermesgui.core.action_set:ExitAction"),
 
