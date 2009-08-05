@@ -197,12 +197,14 @@ class ActionSet(WorkbenchActionSet):
                 'ExitGroup']),
             Menu(name='Recent files', path='MenuBar/File', group="RecentGroup"),
         Menu(name='&Edit', path='MenuBar', after="File"),
-        Menu(name='&View', path='MenuBar', after="Edit"),
+        Menu(name='&View', path='MenuBar', after="Edit",
+            groups=['zoom_actions1', 'zoom_actions2', 'zoom_actions3']),
         Menu(name='&Problem', path='MenuBar', after="View",
             groups=['problem_actions1', 'problem_add', 'problem_actions2',
                 'problem_actions3', 'problem_actions4', 'problem_actions5']),
             Menu(name='Add', path='MenuBar/Problem', group="problem_add"),
-        Menu(name='&Tools', path='MenuBar', after="Problem"),
+        Menu(name='&Tools', path='MenuBar', after="Problem",
+            groups=['tools_actions1', 'tools_actions2']),
         Menu(
             path='MenuBar',
             class_name='hermesgui.core.action_set:MyViewMenuManager',
@@ -211,15 +213,7 @@ class ActionSet(WorkbenchActionSet):
         Menu(name='&Help', path='MenuBar', after="Windows"),
     ]
 
-    groups = [
-
-        Group(id='zoom_actions1', path='MenuBar/View'),
-        Group(id='zoom_actions2', path='MenuBar/View'),
-        Group(id='zoom_actions3', path='MenuBar/View'),
-
-        Group(id='tools_actions1', path='MenuBar/Tools'),
-        Group(id='tools_actions2', path='MenuBar/Tools'),
-    ]
+    groups = []
 
     tool_bars = [
         ToolBar(name='File'),
