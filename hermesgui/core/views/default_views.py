@@ -48,6 +48,12 @@ class ColorView(PyfaceView):
 def format_node(node, _):
     return "[%g; %g]" % (node.x, node.y)
 
+def format_edge(edge, _):
+    return "[%d] - [%d]" % (edge.start, edge.end)
+
+def format_label(label, _):
+    return "[%g; %g]" % (label.x, label.y)
+
 def configure(node):
     node.configure_traits()
 
@@ -76,20 +82,19 @@ tree_editor = TreeEditor(nodes=[
         ),
     TreeNode(
         node_for=[Node],
-        #label="=node",
         formatter=format_node,
         view=no_view,
         on_dclick=configure,
         ),
     TreeNode(
         node_for=[Edge],
-        label="=edge",
+        formatter=format_edge,
         view=no_view,
         on_dclick=configure,
         ),
     TreeNode(
         node_for=[Label],
-        label="=label",
+        formatter=format_label,
         view=no_view,
         on_dclick=configure,
         ),

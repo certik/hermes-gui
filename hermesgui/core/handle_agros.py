@@ -59,10 +59,14 @@ class Node(HasTraits):
     y = MyFloat
 
 class Edge(HasTraits):
-    pass
+    id = MyInt
+    start = MyInt
+    end = MyInt
 
 class Label(HasTraits):
-    pass
+    id = MyInt
+    x = MyFloat
+    y = MyFloat
 
 class Geometry(HasTraits):
     nodes = List(Node)
